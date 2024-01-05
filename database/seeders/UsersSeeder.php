@@ -19,10 +19,10 @@ class UsersSeeder extends Seeder
         $user = new User([
             "nombre" => "admin",
             "apellidos" => "sys admin",
-            "email" => "admin@hoteles-app.com",
+            "email" => "admin@admin.com",
             "telefono" => "+34675685875",
             "password" => Hash::make($password),
-
+            "rol" => "admin",
         ]);
 
         $user->saveOrFail();
