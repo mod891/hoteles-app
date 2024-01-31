@@ -14,17 +14,23 @@ class UsersSeeder extends Seeder
      */
     public function run(): void
     {
-        $password = "admin";
-        
-        $user = new User([
+        $admin = new User([
             "nombre" => "admin",
             "apellidos" => "sys admin",
             "email" => "admin@admin.com",
             "telefono" => "+34675685875",
-            "password" => Hash::make($password),
+            "password" => Hash::make("admin"),
             "rol" => "admin",
         ]);
+        $user = new User([
+            "nombre" => "david",
+            "apellidos" => "abc def",
+            "email" => "david@gmail.com",
+            "telefono" => "+34623468817",
+            "password" => Hash::make("pass"),
+        ]);
 
+        $admin->saveOrFail();
         $user->saveOrFail();
     }
 }

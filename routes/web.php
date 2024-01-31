@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\AdminController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,4 +22,6 @@ Route::get('/', [LandingController::class, 'index'])->name('landingPage');
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
+
 

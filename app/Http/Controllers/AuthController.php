@@ -12,12 +12,16 @@ class AuthController extends Controller
     public function index() {
 
         if (Auth::check()) {
-        
-            return view('landingPage');
+            $user = Auth::user();
+            if ($user->rol == "admin") {
+                return redirect()->route('admin.dashboard');
+            }
+            else {
+                return redirect()->route('/');
+            }
         }
         return view('login');
     }
-
 
     public function authenticate(Request $request)
     {
@@ -30,11 +34,19 @@ class AuthController extends Controller
         ]);
         
         $credentials = $request->only('email', 'password');
-
         if (Auth::attempt($credentials)) {
+            
             $request->session()->regenerate();
-            return redirect()->route('landingPage')
+            $user = Auth::user();
+            if ($user->rol == "admin") {
+                return redirect()->route('admin.dashboard')
+                    ->withSuccess('Login Correcto');
+            } 
+            else {
+                return redirect()->route('landingPage')
                 ->withSuccess('Login Correcto');
+  
+            }
         }
      
         return back()->withErrors(['email' => 'Los datos introducidos no son correctos'])->onlyInput('email');

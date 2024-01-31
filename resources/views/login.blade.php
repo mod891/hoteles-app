@@ -12,6 +12,6 @@
                 <span class="text-danger">{{ $errors->first('email') }}</span>
             @endif
         </form>
-        admin@hoteles-app.com
+        admin@admin.com 
     </body>
 </html>
