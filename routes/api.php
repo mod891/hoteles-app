@@ -20,7 +20,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// TODO protect routes api token just for admin
+Route::get('hoteles',[HotelController::class, 'hotels']);
 Route::post('hotel',[HotelController::class, 'store']);
 Route::get('hotel',[HotelController::class, 'index']);
+Route::delete('hotel/{id}',[HotelController::class,'delete']);
+Route::put('hotel/{id}',[HotelController::class, 'edit']);
 
 //Route::post('hotel','HotelController@store');

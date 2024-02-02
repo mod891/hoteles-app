@@ -18,7 +18,10 @@
                 <div class="tab">
                     <a href="#" id="usuarios">Usuarios</a>
                 </div>
-
+                <!-- -->
+                <div id="crudHotel">
+                    @include('hotel.table')
+                </div>
                 <div id="crearHotelView" class="">
                     @include('hotel.crearHotel')
                 </div>
