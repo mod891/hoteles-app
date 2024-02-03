@@ -24,12 +24,11 @@ class HotelController extends Controller
         $hotel->telefono = $telefono;
         $hotel->imagen = null; // TODO curl img upload service get link
         $hotel->save();
-       //return redirect()->to('/');
-        //dd($request->all());
        return redirect()->to('/');
     }
 
     function hotels(Request $request) {       
+
         return Hotel::paginate(1);
     }
 
@@ -40,10 +39,31 @@ class HotelController extends Controller
        $hotel->delete();
        return response()->json(['success' => true]);
     }
-
+    
     function edit(Request $request) {
-        $id = $request->id;
+
+        extract($request->all());
         $hotel = Hotel::find($id);
-        echo"edit";dd($hotel);
+        $hotel->nombre = $nombre;
+        $hotel->direccion = $direccion;
+        $hotel->provincia = $provincia;
+        $hotel->municipio = $municipio;
+        $hotel->telefono = $telefono;
+        $hotel->imagen = null; // TODO curl img upload service get link
+        $hotel->save(); 
+        return response()->json(['success' => true]);  
+    }
+
+    function editForm(Request $request) {
+
+        $id = explode('/',$request->getRequestUri())[3];
+        $obj = Hotel::find($id);
+        $hotel = $obj->getAttributes();
+        return view('hotel.edit',compact('hotel'));
+    }
+
+    function createForm(Request $request) {
+
+        return view('hotel.new');
     }
 }

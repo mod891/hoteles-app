@@ -591,6 +591,11 @@ video {
   margin-right: 1.5rem;
 }
 
+.mx-12 {
+  margin-left: 3rem;
+  margin-right: 3rem;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -733,7 +738,9 @@ video {
 .justify-center {
   justify-content: center;
 }
-
+.justify-end { 
+  justify-content: end; /*added*/
+}
 .gap-4 {
   gap: 1rem;
 }
@@ -885,6 +892,10 @@ video {
   line-height: 1.625;
 }
 
+.text-blue-600 {  
+  --tw-text-opacity: 1;
+  color: rgb(28 100 242/var(--tw-text-opacity));
+}
 .text-gray-500 {
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity));

@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
-
     function index() {
 
         if (Auth::check()) {

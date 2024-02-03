@@ -1,12 +1,21 @@
 var nombre = document.getElementById('nombre')
 var direccion = document.getElementById('direccion')
 var provincia = document.getElementById('provincia')
-var muncipio = document.getElementById('muncipio')
+var municipio = document.getElementById('municipio')
 var telefono = document.getElementById('telefono')
 var imagen = document.getElementById('imagen')
-var form = document.getElementById('crear-hotel-form');
+var formCreate = document.getElementById('crear-hotel-form');
+var btnModificar = document.getElementById('btnModificar');
 
-form.addEventListener('submit',validar)
+/* 
+la misma función de validar para el formulario de crear y modificar, el de crear manda el formulario con submit de form,
+el de modificar los datos se mandan con put de axios al activarse el evento click del botón modificar
+*/
+if (formCreate != null)
+    formCreate.addEventListener('submit',validar)
+
+if (btnModificar != null)
+    btnModificar.addEventListener('click',validar)
 
 clear() 
 
@@ -78,7 +87,7 @@ function validar(evt) {
         telefono.classList.remove('input-error') 
         document.getElementById('telefonoError').innerText = ''; 
     }
-
+/* // cuando cargue img url se volverá a activar
     if (imagen.value == null || imagen.value == "" ) {
         hayErrores = true;
         if (!imagen.classList.contains('input-error')) {
@@ -90,11 +99,34 @@ function validar(evt) {
         imagen.classList.remove('input-error') 
         document.getElementById('imagenError').innerText = ''; 
     }
+*/
 
-    if (!hayErrores) 
-        this.submit()
+    if (!hayErrores) {
+        if (this.id == 'crear-hotel-form')
+            this.submit()
+
+        else if (this.id == 'btnModificar') {
+            let id = document.getElementById('id').value
+            const data = {
+                id: id,
+                nombre: nombre.value,
+                direccion: direccion.value,
+                provincia: provincia.value,
+                municipio: municipio.value,
+                telefono: telefono.value,
+                imagen: imagen.value
+            }
+            axios.put('../../api/hotel/'+id,data).then(r => {
+                if (r.data.success)
+                    window.location = '/'
+                
+            }).catch(error => {
+                console.log(error)
+            })
+        }
+    }
     else {
-
         return
     }
 }
+

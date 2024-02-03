@@ -3,32 +3,35 @@
 @section('title','panel de administración')
 @section('scripts')
 <script src="{{ asset('/js/api/main.js') }} "></script>
-<script src="{{ asset('/js/views/admin/dashboard.js') }} "></script>
+<script src="{{ asset('/js/views/admin/dashboard.js') }} " defer></script>
 @endsection
 @section('content')
+    <div id="admin-view" class="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
+
     @auth
-        <a href="{{ route('logout') }}" >Log out</a>
+        <div class="flex flex-row justify-end">
+            <a href="{{ route('logout') }}" >Log out</a>
+        </div>
     @endauth
 
-        <div class="flex">
-            <div class="flex-col">
-                <div class="tab">
-                    <a href="#" id="hoteles">Hoteles</a>
-                </div>
-                <div class="tab">
-                    <a href="#" id="usuarios">Usuarios</a>
-                </div>
-                <!-- -->
-                <div id="crudHotel">
-                    @include('hotel.table')
-                </div>
-                <div id="crearHotelView" class="">
-                    @include('hotel.crearHotel')
-                </div>
-                <div id="crearUsuarioView" class="">
-                    @include('usuario.crearUsuario')
-                </div>
+        <!--sm:justify-between -->
+        <div class="flex flex-row justify-center">
+            <div class="tab mx-12">
+                <a href="#" id="hoteles">Hoteles</a>
+            </div>
+            <div class="tab mx-12">
+                <a href="#" id="usuarios">Usuarios</a>
             </div>
         </div>
-        Admin view
+
+        <div class="" id="crudHotel">
+                @include('hotel.table')
+        </div>
+          
+        <div class="hidden" id="crudUsuario">
+            <div id="crearUsuarioView" class="">
+                @include('usuario.new')
+            </div>
+        </div>
+    </div>
 @endsection

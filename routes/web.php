@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\HotelController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,3 +25,6 @@ Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
+
+Route::get('/hotel/create', [HotelController::class, 'createForm'])->name('hotel.new');
+Route::get('/hotel/edit/{id}', [HotelController::class, 'editForm'])->name('hotel.edit');

@@ -1,5 +1,14 @@
 <div>
 <!-- -->
+    <div class="flex flex-row justify-end">
+        <a href="{{ route('hotel.new') }}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-building-add" viewBox="0 0 16 16">
+                <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0"/>
+                <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6.5a.5.5 0 0 1-1 0V1H3v14h3v-2.5a.5.5 0 0 1 .5-.5H8v4H3a1 1 0 0 1-1-1z"/>
+                <path d="M4.5 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-6 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-6 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"/>
+            </svg>
+        </a>
+    </div>
     <div class="flex flex-row">
         <div id="table">
             <table>
@@ -54,15 +63,13 @@ function dataTable(data) {
         for (let i=0; i<data.length; i++) {
             var html = `<tr><td>${data[i].nombre}</td><td>${data[i].telefono}</td><td>${data[i].municipio}</td>
                         <td>
-                            <a href="#"><i class="bi bi-pencil-square"></i></a>
+                            <a href="/hotel/edit/${data[i].id}"><i class="bi bi-pencil-square"></i></a>
                             <a onClick="rm(${data[i].id})" href="#"><i class="bi bi-trash"></i></a>
                         </td></tr>`
             var row = document.createElement('tr');
             row.innerHTML = html;
             tbody.appendChild(row);
         }
-    
-
 }
 
 function dataPaginacion(data) {
@@ -88,19 +95,4 @@ function dataPaginacion(data) {
     div.innerHTML = html;
     
 }
-
-
-/*    
-function stringToHtml(str) {
-    var temp = document.createElement('div');
-    temp.innerHTML = str;
-    console.log(temp.firstChild)
-    return temp.firstChild;
-}
-fetch('/api/hoteles?page=2').then(r => {
-    r.json().then(data => {
-        console.log(data)
-    })
-})
-*/
 </script>

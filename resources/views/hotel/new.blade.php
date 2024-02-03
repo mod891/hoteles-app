@@ -1,4 +1,8 @@
+@extends('layouts.base')
+@section('title','Crear hotel')
+
 <!--div class="h-screen flex items-center justify-center"> -->
+@section('content')
  
 <div id="crear-hotel-view" class="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
     <h2 class="text-2xl font-semibold mb-4">Nuevo Hotel</h2>
@@ -49,7 +53,9 @@
         </button>
       </div>
     </form>
+
+    <script src="{{ asset('/js/views/formHotel.js') }} "></script>
   </div>
+@endsection
  
-<script src="{{ asset('/js/views/crearHotel.js') }} "></script>
 
