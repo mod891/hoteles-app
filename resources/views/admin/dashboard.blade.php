@@ -29,9 +29,7 @@
         </div>
           
         <div class="hidden" id="crudUsuario">
-            <div id="crearUsuarioView" class="">
-                @include('usuario.new')
-            </div>
+                @include('usuario.table')
         </div>
     </div>
 @endsection

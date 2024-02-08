@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('municipio');
             $table->string('provincia');
             $table->string('telefono',15);
-            $table->binary('imagen');
+            $table->string('imagen');
         });
     }
 

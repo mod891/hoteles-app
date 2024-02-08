@@ -3,7 +3,7 @@
 @section('scripts')
 <script src="{{ asset('/js/views/formHotel.js') }} " defer></script>
 @endsection
-
+@section('content')
 <div id="edit-hotel-view" class="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
     <h2 class="text-2xl font-semibold mb-4">Editar Hotel</h2>
 
@@ -55,4 +55,4 @@
       </div>
     </form>
   </div>
-
+@endsection

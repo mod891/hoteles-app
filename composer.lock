@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9c491b8531eec05ba41a11d9276a5749",
+    "content-hash": "5b2e3833124930b160baa2e143fdfcdc",
     "packages": [
         {
             "name": "brick/math",
@@ -3185,6 +3185,35 @@
                 }
             ],
             "time": "2023-11-08T05:53:05+00:00"
+        },
+        {
+            "name": "sirv/sirv-rest-api-php",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sirv/sirv-rest-api-php.git",
+                "reference": "4bf605bd16feefe069529aa8a6eb3e04000492d7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sirv/sirv-rest-api-php/zipball/4bf605bd16feefe069529aa8a6eb3e04000492d7",
+                "reference": "4bf605bd16feefe069529aa8a6eb3e04000492d7",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Sirv",
+                    "email": "support@sirv.com"
+                }
+            ],
+            "description": "A PHP Class for Interacting with Sirv REST API",
+            "support": {
+                "issues": "https://github.com/sirv/sirv-rest-api-php/issues",
+                "source": "https://github.com/sirv/sirv-rest-api-php/tree/1.0.0"
+            },
+            "time": "2023-07-31T05:59:29+00:00"
         },
         {
             "name": "symfony/console",

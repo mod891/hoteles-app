@@ -4,6 +4,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HotelController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoomController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,10 +25,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // TODO protect routes api token just for admin
+Route::get('hotel',[HotelController::class, 'index']);
 Route::get('hoteles',[HotelController::class, 'hotels']);
 Route::post('hotel',[HotelController::class, 'store']);
-Route::get('hotel',[HotelController::class, 'index']);
 Route::delete('hotel/{id}',[HotelController::class,'delete']);
 Route::put('hotel/{id}',[HotelController::class, 'edit']);
 
+Route::post('room',[RoomController::class, 'store']);
+
+Route::get('user',[UserController::class,'index']);
+Route::get('usuarios',[UserController::class,'users']);
+Route::post('user',[UserController::class,'store']);
+Route::put('user/{id}',[UserController::class,'edit']);
 //Route::post('hotel','HotelController@store');

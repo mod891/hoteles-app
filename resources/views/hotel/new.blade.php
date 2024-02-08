@@ -1,6 +1,8 @@
 @extends('layouts.base')
 @section('title','Crear hotel')
-
+@section('scripts')
+<script src="{{ asset('/js/views/formHotel.js') }} " defer></script>
+@endsection
 <!--div class="h-screen flex items-center justify-center"> -->
 @section('content')
  
@@ -54,7 +56,6 @@
       </div>
     </form>
 
-    <script src="{{ asset('/js/views/formHotel.js') }} "></script>
   </div>
 @endsection
  

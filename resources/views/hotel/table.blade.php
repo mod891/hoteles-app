@@ -11,14 +11,14 @@
     </div>
     <div class="flex flex-row">
         <div id="table">
-            <table>
+            <table class="calculator">
                 <thead>
                     <th>Nombre</th>
                     <th>Teléfono</th>
                     <th>Municipio</th>
                     <th>Accion</th>
                 </thead>
-                <tbody id='tbody'>
+                <tbody id='tbodyHotel'>
                     <tr>
 
                     </tr>
@@ -28,43 +28,43 @@
     </div>
 
     <div class="flex flex-row justify-center mt-6">
-        <div id="paginacion">
+        <div id="paginacionHotel">
         </div>
     </div>
     <br><br>
 </div>
 
 <script>
-loadTable(1)
+loadTableHotel(1)
 
-function loadTable(page) {
+function loadTableHotel(page) {
     if (page == 0) return;
     axios.get('/api/hoteles?page='+page).then(r => {
         if (r.data.data.length > 0) {
-            dataTable(r.data.data)
-            dataPaginacion(r.data)
+            dataTableHotel(r.data.data)
+            dataPaginacionHotel(r.data)
         } else {
             document.getElementById('table').innerHTML = "<h3>No hay datos</h3>"
         }
     })
 } 
-function rm(id) {
+function rmHotel(id) {
     axios.delete(`/api/hotel/${id}`).then(r => {
         console.log(r)
-        loadTable(1)
+        loadTableHotel(1)
     }).catch(error => {
         console.log(error)
         return;
     })
 }
-function dataTable(data) {
-    var tbody = document.getElementById('tbody')
+function dataTableHotel(data) {
+    var tbody = document.getElementById('tbodyHotel')
     tbody.innerHTML = ''
         for (let i=0; i<data.length; i++) {
             var html = `<tr><td>${data[i].nombre}</td><td>${data[i].telefono}</td><td>${data[i].municipio}</td>
                         <td>
                             <a href="/hotel/edit/${data[i].id}"><i class="bi bi-pencil-square"></i></a>
-                            <a onClick="rm(${data[i].id})" href="#"><i class="bi bi-trash"></i></a>
+                            <a onClick="rmHotel(${data[i].id})" href="#"><i class="bi bi-trash"></i></a>
                         </td></tr>`
             var row = document.createElement('tr');
             row.innerHTML = html;
@@ -72,20 +72,20 @@ function dataTable(data) {
         }
 }
 
-function dataPaginacion(data) {
-    var div = document.getElementById('paginacion');
+function dataPaginacionHotel(data) {
+    var div = document.getElementById('paginacionHotel');
     let sig, sigfunc, prev, prevfunc;
 
     if (data.from < data.last_page) {
         sig = data.from+1;
-        sigfunc = 'loadTable('+sig+')';
+        sigfunc = 'loadTableHotel('+sig+')';
         prev = data.from-1 >= 1?  data.from-1 :'0'; 
-        prevfunc = 'loadTable('+prev+')';
+        prevfunc = 'loadTableHotel('+prev+')';
     }
     else if (data.from == data.last_page) {
-        sigfunc = 'loadTable(0)'
+        sigfunc = 'loadTableHotel(0)'
         prev = data.from-1 >= 1?  data.from-1 :'0'; 
-        prevfunc = 'loadTable('+prev+')';
+        prevfunc = 'loadTableHotel('+prev+')';
     }
    var html = 
     `<a onClick="${prevfunc}"><i class="bi bi-arrow-left-square mx-6"></i></a>
