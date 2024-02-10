@@ -746,6 +746,10 @@ video {
   flex-direction: column;
 }
 
+.flex-row { /*added*/
+  flex-direction: row;
+}
+
 .items-center {
   align-items: center;
 }

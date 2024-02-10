@@ -9,7 +9,7 @@ class RoomController extends Controller
 {
     function createForm(Request $request) {
 
-        return view('room.new');
+        return view('admin.room.new');
     }
 
     function store(Request $request) {
@@ -20,7 +20,7 @@ class RoomController extends Controller
       $habitacion->hotel_id = $idHotel;
       $habitacion->descripcion = $descripcion;
       $habitacion->fumadores = $fumadores;
-      $habitacion->mascotas = $mascotas;
+      $habitacion->minibar = $minibar;
       $habitacion->balcon = $balcon;
       $habitacion->cama_matrimonio = $camaMatrimonio;
       $habitacion->precio = $precio;

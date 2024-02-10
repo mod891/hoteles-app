@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rooms', function (Blueprint $table) {
+        Schema::create('rooms', function (Bzzlueprint $table) {
             $table->id();
             $table->timestamps();
             $table->foreignId('hotel_id');
-            $table->foreign('hotel_id')->references('id')->on('hotels');
+            $table->foreign('hotel_id')
+                ->references('id')->on('hotels')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->string('descripcion');
             $table->boolean('fumadores');
             $table->boolean('balcon');

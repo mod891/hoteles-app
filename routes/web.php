@@ -22,18 +22,21 @@ use App\Http\Controllers\UserController;
 
 
     Route::get('/', [LandingController::class, 'index'])->name('landingPage');
+    Route::get('/inicio', [UserController::class, 'inicio'])->name('user.inicio');
 
     Route::get('/login', [AuthController::class, 'index'])->name('login');
     Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
 
-    Route::get('/hotel/create', [HotelController::class, 'createForm'])->name('hotel.new');
-    Route::get('/hotel/edit/{id}', [HotelController::class, 'editForm'])->name('hotel.edit');
+    Route::get('/hotel/create', [HotelController::class, 'createForm'])->name('admin.hotel.new');
+    Route::get('/hotel/edit/{id}', [HotelController::class, 'editForm'])->name('admin.hotel.edit');
 
-    Route::get('/room/create/{id}', [RoomController::class, 'createForm'])->name('room.new');
+    Route::get('/room/create/{id}', [RoomController::class, 'createForm'])->name('admin.room.new');
 
-    Route::get('/user/create', [UserController::class, 'createForm'])->name('user.new');
-    Route::get('/user/edit/{id}', [UserController::class, 'editForm'])->name('user.edit');
+    Route::get('/register', [UserController::class, 'registerForm'])->name('register');
+    
+    Route::get('/user/create', [UserController::class, 'createForm'])->name('admin.user.new');
+    Route::get('/user/edit/{id}', [UserController::class, 'editForm'])->name('admin.user.edit');
 
     //Route::group(['middleware' => ['web']], function () {});

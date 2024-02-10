@@ -64,17 +64,27 @@ class UserController extends Controller
 
     } 
 
+    function inicio(Request $request) {
+
+        return view('user.inicio');
+    }
+
     function editForm(Request $request) {
 
         $id = explode('/',$request->getRequestUri())[3];
         $obj = User::find($id);
         $usuario = $obj->getAttributes();
       //  dd($usuario);
-        return view('usuario.edit',compact('usuario'));
+        return view('admin.usuario.edit',compact('usuario'));
     }
 
     function createForm(Request $request) {
 
-        return view('usuario.new');
+        return view('admin.usuario.new');
+    }
+
+    function registerForm(Request $request) {
+
+        return view('user.register');
     }
 }

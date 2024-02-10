@@ -11,6 +11,9 @@ class LandingController extends Controller
         if (Auth::check() && Auth::user()->rol == "admin") {
             return redirect()->route('admin.dashboard');
         }
+        else if (Auth::check() && Auth::user()->rol == "normal") {
+            return redirect()->route('user.inicio');
+        }
         return view('landingPage');
     }
 }

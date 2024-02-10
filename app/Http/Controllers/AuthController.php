@@ -17,7 +17,7 @@ class AuthController extends Controller
                 return redirect()->route('admin.dashboard');
             }
             else {
-                return redirect()->route('/');
+                return redirect()->route('landingPage');
             }
         }
         return view('login');
@@ -43,9 +43,8 @@ class AuthController extends Controller
                     ->withSuccess('Login Correcto');
             } 
             else {
-                return redirect()->route('landingPage')
+                return redirect()->route('user.inicio')
                 ->withSuccess('Login Correcto');
-  
             }
         }
      

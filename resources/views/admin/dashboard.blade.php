@@ -25,11 +25,11 @@
         </div>
 
         <div class="" id="crudHotel">
-                @include('hotel.table')
+                @include('admin.hotel.table')
         </div>
           
         <div class="hidden" id="crudUsuario">
-                @include('usuario.table')
+                @include('admin.usuario.table')
         </div>
     </div>
 @endsection

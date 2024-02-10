@@ -28,6 +28,7 @@ class HotelController extends Controller
         $name.= $chars[rand(0,strlen($chars))];
         return $name;
     }
+
     function uploadImg($localPath) {
 
         // check token expire date
@@ -96,6 +97,6 @@ class HotelController extends Controller
 
     function createForm(Request $request) {
 
-        return view('hotel.new');
+        return view('admin.hotel.new');
     }
 }
