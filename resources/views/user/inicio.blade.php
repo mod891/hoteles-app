@@ -16,7 +16,7 @@
         izq
         </div>
         
-    <div class="w-full md:flex md:flex-col "><!-- sm:w-7 md:w-16 lg:w-1/2 xl:w-full  -->
+    <div class="flex flex-col w-16 md:w-32 lg:w-48"><!--w-full md:flex md:flex-col sm:w-7 md:w-16 lg:w-1/2 xl:w-full   -->
     Inicio
     </div>
 
