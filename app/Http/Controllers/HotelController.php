@@ -24,7 +24,7 @@ class HotelController extends Controller
     function randomName() {
         $chars = "abcdefghijklmnopqrstuvwxyz123456789_";
         $name = "";
-        for($i=0; $i<12; $i++)
+        for($i=0; $i<10; $i++)
         $name.= $chars[rand(0,strlen($chars))];
         return $name;
     }
@@ -39,11 +39,7 @@ class HotelController extends Controller
             '',
             'Sirv PHP client'
         );
-    /* 
-        echo $sirv->isConnected();
-        $token = $sirv->getToken();
-        $tokenExpireTime = $sirv->getTokenExpireTime();
-    */
+ 
         $randomName = $this->randomName();
         $remotePath = 'Imgproj/'.$randomName.'.jpg';
         $sirv->uploadFile($localPath, $remotePath);
@@ -60,7 +56,7 @@ class HotelController extends Controller
         $hotel->provincia = $provincia;
         $hotel->municipio = $municipio;
         $hotel->telefono = $telefono;
-        $hotel->imagen = $this->uploadImg($imagen->getPathName());
+        $hotel->imagen = null; // $this->uploadImg($imagen->getPathName()); sin uso de momento la imagen del hotel
         $hotel->save();
 
        return redirect()->to('/room/create/'.$hotel->id);

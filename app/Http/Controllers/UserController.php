@@ -64,10 +64,6 @@ class UserController extends Controller
 
     } 
 
-    function inicio(Request $request) {
-
-        return view('user.inicio');
-    }
 
     function editForm(Request $request) {
 

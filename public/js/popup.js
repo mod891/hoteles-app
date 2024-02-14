@@ -15,10 +15,6 @@ window.popup = function(message) {
                 window.location = '/';
             }
         })
-    }
+    } 
 }
 
-
-
- 
-        /**/

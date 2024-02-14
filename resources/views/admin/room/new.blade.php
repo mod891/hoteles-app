@@ -38,6 +38,18 @@
             <input type="radio" id="no" name="minibar" value="0" class="w-1/4  border rounded-md focus:border-blue-500">
         </div>
       </div>
+
+      <!-- Minicadena wifi -->
+      <div class="mb-4">
+        <div class="flex flex-row">
+          <label for="minibar" class="w-1/2 block text-gray-700 font-semibold">Minicadena Wifi</label>
+            Si
+            <input type="radio" id="si" name="minicadenaWifi" value="1" class="w-1/4 border rounded-md  focus:border-blue-500">
+            No
+            <input type="radio" id="no" name="minicadenaWifi" value="0" class="w-1/4  border rounded-md focus:border-blue-500">
+        </div>
+      </div>
+
       <!-- Balcon -->
       <div class="mb-4">
         <div class="flex flex-row">
@@ -59,11 +71,23 @@
         </div>
       </div>
 
+      
       <!-- Descripcion -->
       <div class="mb-4">
         <div class="flex flex-col">
           <label for="descripcion" class="w-1/2 block text-gray-700 font-semibold">Descripcion</label>
            <textarea cols="60" rows="4" id="descripcion" name="descripcion" value="" class="w-full border rounded-md  focus:border-blue-500"></textarea>
+        </div>
+      </div>
+
+     
+
+      <!-- Imagen -->
+      <div class="mb-4">
+        <div class="flex flex-row">
+          <label for="imagen" class="w-1/2 block text-gray-700 font-semibold">Foto</label>
+          <input type="file" id="imagen" name="imagen" class="w-full py-2 focus:outline-none">
+          <div class="input-message-error" id="imagenError"></div>
         </div>
       </div>
 
@@ -74,7 +98,6 @@
            <input type="number" min="0" id="precio" name="precio" value="" class="w-1/4 mx-6 border rounded-md  focus:border-blue-500">€
         </div>
       </div>
-
       <!-- Botón de Crear -->
       <div class="text-center">
         <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">

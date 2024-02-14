@@ -32,6 +32,7 @@ Route::delete('hotel/{id}',[HotelController::class,'delete']);
 Route::put('hotel/{id}',[HotelController::class, 'edit']);
 
 Route::post('room',[RoomController::class, 'store']);
+Route::post('rooms',[RoomController::class, 'rooms']);
 
 Route::get('user',[UserController::class,'index']);
 Route::get('usuarios',[UserController::class,'users']);

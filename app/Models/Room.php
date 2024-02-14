@@ -13,7 +13,7 @@ class Room extends Model
 
 
     protected $fillable = [
-        'hotel_id','descripcion', 'fumadores', 'minibar', 'balcon', 'cama_matrimonio', 'precio'
+        'hotel_id','descripcion', 'fumadores', 'minibar', 'balcon', 'cama_matrimonio', 'minicadena_wifi', 'precio'
     ];
 
     /**

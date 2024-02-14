@@ -22,7 +22,7 @@ use App\Http\Controllers\UserController;
 
 
     Route::get('/', [LandingController::class, 'index'])->name('landingPage');
-    Route::get('/inicio', [UserController::class, 'inicio'])->name('user.inicio');
+    Route::get('/inicio', [RoomController::class, 'inicio'])->name('user.inicio');
 
     Route::get('/login', [AuthController::class, 'index'])->name('login');
     Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
@@ -33,6 +33,7 @@ use App\Http\Controllers\UserController;
     Route::get('/hotel/edit/{id}', [HotelController::class, 'editForm'])->name('admin.hotel.edit');
 
     Route::get('/room/create/{id}', [RoomController::class, 'createForm'])->name('admin.room.new');
+    Route::get('/room/{id}', [RoomController::class, 'ficha'])->name('user.fichaHabitacion');
 
     Route::get('/register', [UserController::class, 'registerForm'])->name('register');
     

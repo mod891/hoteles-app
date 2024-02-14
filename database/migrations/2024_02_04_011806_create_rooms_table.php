@@ -24,7 +24,9 @@ return new class extends Migration
             $table->boolean('balcon');
             $table->boolean('minibar');
             $table->boolean('cama_matrimonio');
-            $table->float('precio',4,2);
+            $table->boolean('minicadena_wifi');
+            $table->float('precio',6,2);
+            $table->string('imagen');
         });
     }
 
