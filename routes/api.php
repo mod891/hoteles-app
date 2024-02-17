@@ -6,8 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoomController;
-
-
+use App\Http\Controllers\ReservaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,10 +32,16 @@ Route::put('hotel/{id}',[HotelController::class, 'edit']);
 
 Route::post('room',[RoomController::class, 'store']);
 Route::post('rooms',[RoomController::class, 'rooms']);
+Route::post('toogleFavorito',[RoomController::class, 'toogleFavorito']);
+Route::get('favorito',[RoomController::class, 'favorito']);
+Route::get('favoritos',[RoomController::class, 'favoritosList']);
 
 Route::get('user',[UserController::class,'index']);
 Route::get('usuarios',[UserController::class,'users']);
 Route::post('user',[UserController::class,'store']);
 Route::delete('user/{id}',[UserController::class,'delete']);
 Route::put('user/{id}',[UserController::class,'edit']);
-//Route::post('hotel','HotelController@store');
+
+Route::post('reserva', [ReservaController::class,'store']);
+Route::get('reservas',[ReservaController::class, 'reservedList']);
+Route::get('visitados',[ReservaController::class, 'visitedList']);

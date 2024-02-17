@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Room;
+use App\Models\Favorito;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 include_once('../vendor/sirv/sirv-rest-api-php/sirv.api.class.php');
 
 class RoomController extends Controller
@@ -33,17 +36,7 @@ class RoomController extends Controller
       return redirect()->back()->with('popup','habitacion'); // extra -> añadir algun tipo de verificacion prevent cualquiera llame a popup
     }
 
-
-    function randomName() {
-      $chars = "abcdefghijklmnopqrstuvwxyz123456789_";
-      $name = "";
-      for($i=0; $i<10; $i++)
-      $name.= $chars[rand(0,strlen($chars))];
-      return $name;
-    }
-
     function uploadImg($localPath) {
-
       // check token expire date
       $sirv = new \SirvAPIClient(
           'ZRndx10UFEOXj1BWK5bjoSQbrtg',
@@ -53,8 +46,7 @@ class RoomController extends Controller
           'Sirv PHP client'
       );
 
-      $randomName = $this->randomName();
-      $remotePath = 'Imgproj/hab-'.$randomName.'.jpg';
+      $remotePath = 'Imgproj/hab-'.Str::random(10).'.jpg';
       $sirv->uploadFile($localPath, $remotePath);
       $url = 'https://fpalandalus.sirv.com/'.$remotePath;
       return $url;
@@ -81,6 +73,7 @@ class RoomController extends Controller
     } 
     echo $html;
   }
+  
 
   function ficha(Request $request) {
     $id = explode('/',$request->getRequestUri())[2];
@@ -94,9 +87,79 @@ class RoomController extends Controller
     return view('user.fichaHabitacion',compact('habitacion'));
   }
 
-  function inicio(Request $request) {
 
-    return view('user.inicio');
+  function favoritos(Request $request) {
+    return view('user.favoritos');
   }
 
+  function favoritosList(Request $request) {
+    $userId = $request->user()->id;
+    $favoritos = Favorito::where('user_id',$userId)->get();
+    $html = '';
+    for ($i=0; $i<sizeof($favoritos); $i++) {
+      $habitacion = Room::find($favoritos[$i]->room_id);
+      $data = [
+        'url' => 'room/'.$habitacion->id,
+        'nombre' => $habitacion->hotel()->get()[0]->nombre,
+        'imagen' => $habitacion->imagen.'?w=180',
+        'municipio' => $habitacion->hotel()->get()[0]->municipio,
+        'provincia' => $habitacion->hotel()->get()[0]->provincia,
+        'precio' => $habitacion->precio
+      ];
+    
+      $html .= View::make("components.card")->with("data", $data)->render();
+    } 
+   
+    echo $html;
+  }
+
+  function favorito(Request $request) {
+
+    extract($request->all());
+    $userId = $request->user()->id; 
+    $roomId = $room;
+
+    $existe = DB::table('favoritos')->select(DB::raw('count(*) as existe'))->where([
+      ['user_id', '=', $userId],
+      ['room_id', '=', $roomId],
+    ])->get()->first()->existe;
+
+    return response()->json(['favorito' => $existe]);
+
+  }
+
+  function toogleFavorito(Request $request) {
+
+    extract($request->all());
+    $userId = $request->user()->id; 
+    $roomId = $room;
+    $status = 0;
+    $action = '';
+    // si existe borra, si no existe añade
+    $existe = DB::table('favoritos')->select(DB::raw('count(*) as existe'))->where([
+      ['user_id', '=', $userId],
+      ['room_id', '=', $roomId],
+    ])->get()->first()->existe;
+  
+    if ($existe == 0) {
+
+      $favorito = new Favorito();
+      $favorito->user_id = $userId;
+      $favorito->room_id = $roomId;
+      $favorito->save();
+      $status = 201;
+      
+    } else if ($existe == 1) {
+
+      $favorito = Favorito::where([
+        ['user_id', '=', $userId],
+        ['room_id', '=', $roomId],
+      ])->delete();
+      $status = 204;
+     
+    }
+
+    return response('',$status);
+
+  }
 }

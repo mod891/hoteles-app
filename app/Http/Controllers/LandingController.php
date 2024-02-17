@@ -16,4 +16,9 @@ class LandingController extends Controller
         }
         return view('landingPage');
     }
+
+    function inicio(Request $request) {
+
+        return view('user.inicio');
+    }
 }

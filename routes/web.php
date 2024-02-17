@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReservaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,22 +23,26 @@ use App\Http\Controllers\UserController;
 
 
     Route::get('/', [LandingController::class, 'index'])->name('landingPage');
-    Route::get('/inicio', [RoomController::class, 'inicio'])->name('user.inicio');
-
     Route::get('/login', [AuthController::class, 'index'])->name('login');
+
+    Route::get('/inicio', [LandingController::class, 'inicio'])->name('user.inicio')->middleware('auth');
+
     Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard')->middleware('auth');
 
-    Route::get('/hotel/create', [HotelController::class, 'createForm'])->name('admin.hotel.new');
-    Route::get('/hotel/edit/{id}', [HotelController::class, 'editForm'])->name('admin.hotel.edit');
+    Route::get('/hotel/create', [HotelController::class, 'createForm'])->name('admin.hotel.new')->middleware('auth');
+    Route::get('/hotel/edit/{id}', [HotelController::class, 'editForm'])->name('admin.hotel.edit')->middleware('auth');
 
-    Route::get('/room/create/{id}', [RoomController::class, 'createForm'])->name('admin.room.new');
-    Route::get('/room/{id}', [RoomController::class, 'ficha'])->name('user.fichaHabitacion');
+    Route::get('/room/create/{id}', [RoomController::class, 'createForm'])->name('admin.room.new')->middleware('auth');
+    Route::get('/room/{id}', [RoomController::class, 'ficha'])->name('user.fichaHabitacion')->middleware('auth');
+    Route::get('/favoritos', [RoomController::class, 'favoritos'])->name('user.favoritos')->middleware('auth');
 
     Route::get('/register', [UserController::class, 'registerForm'])->name('register');
-    
-    Route::get('/user/create', [UserController::class, 'createForm'])->name('admin.user.new');
-    Route::get('/user/edit/{id}', [UserController::class, 'editForm'])->name('admin.user.edit');
+    Route::get('/user/create', [UserController::class, 'createForm'])->name('admin.user.new')->middleware('auth');
+    Route::get('/user/edit/{id}', [UserController::class, 'editForm'])->name('admin.user.edit')->middleware('auth');
 
-    //Route::group(['middleware' => ['web']], function () {});
+    Route::get('/reservas', [ReservaController::class, 'reservas'])->name('user.reservas')->middleware('auth');
+    Route::get('/visitados', [ReservaController::class, 'visitados'])->name('user.visitados')->middleware('auth');
+
+ 

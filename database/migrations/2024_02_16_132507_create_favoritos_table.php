@@ -11,20 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reservas', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('favoritos', function (Blueprint $table) {
             $table->foreignId('user_id')
                 ->references('id')->on('users');
-               // ->onDelete('cascade');
             $table->foreignId('room_id')
-                ->references('id')->on('rooms')
-                ->onDelete('cascade');
-            $table->date('fecha_ini');
-            $table->date('fecha_fin');
-            $table->smallInteger('dias');
-            $table->float('precio',10,2);
-
+                ->references('id')->on('rooms');
+            $table->timestamps();
         });
     }
 
@@ -33,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reservas');
+        Schema::dropIfExists('favoritos');
     }
 };

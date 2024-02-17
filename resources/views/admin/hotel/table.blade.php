@@ -10,6 +10,7 @@
         </a>
     </div>
     <div class="flex flex-row">
+    
         <div id="table">
             <table class="calculator">
                 <thead>
