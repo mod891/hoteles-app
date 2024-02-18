@@ -20,7 +20,6 @@ class RoomController extends Controller
     
     function store(Request $request) {
 
-      $data = $request->all();
       extract($request->all());
       $habitacion = new Room();
       $habitacion->hotel_id = $idHotel;
@@ -53,23 +52,34 @@ class RoomController extends Controller
   }
 
   function rooms(Request $request) {
-    $habitaciones = Room::all();
 
+    $dataFiltros = $request->all();
+    $dbKey = ["camaMatrimonio"=>"cama_matrimonio","balcon" => "balcon","minibar" => "minibar","fumadores" => "fumadores","minicadenaWifi" => "minicadena_wifi"];
+    $filtros = [];
+    $habitaciones = null;
     $html = "";
-    // filtros → $habitaciones
-    $cards = [];
+
+    foreach ($dataFiltros as $key => $val) {
+      if ($val['active']) 
+        $filtros[] = [$dbKey[$key],'=',$val['value']]; 
+    }
+    if (sizeof($filtros) == 0) 
+      $habitaciones = Room::all();
+    else 
+      $habitaciones = Room::where($filtros)->get();
 
     for ($i=0; $i<sizeof($habitaciones); $i++) {
-      $cards[] = [
+      $hotel = $habitaciones[$i]->hotel()->first();
+      $card = [
         'url' => 'room/'.$habitaciones[$i]->id,
-        'nombre' => $habitaciones[$i]->hotel()->get()[0]->nombre,
+        'nombre' => $hotel->nombre,
         'imagen' => $habitaciones[$i]->imagen.'?w=180',
-        'municipio' => $habitaciones[$i]->hotel()->get()[0]->municipio,
-        'provincia' => $habitaciones[$i]->hotel()->get()[0]->provincia,
+        'municipio' => $hotel->municipio,
+        'provincia' => $hotel->provincia,
         'precio' => $habitaciones[$i]->precio
       ];
     
-      $html .= View::make("components.card")->with("data", $cards[$i])->render();
+      $html .= View::make("components.card")->with("data", $card)->render();
     } 
     echo $html;
   }

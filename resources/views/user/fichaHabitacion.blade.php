@@ -3,10 +3,11 @@
 @section('title','Ficha de habitación')
 
 @section('scripts')
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+<script src="{{ asset('js/dist/jquery.min.js') }} " ></script>
+<script src="{{ asset('js/dist/moment.min.js') }} " ></script>
+<script type="text/javascript" src="{{ asset('/js/dist/daterangepicker.min.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ asset('/js/dist/daterangepicker.css') }} " />
 <script src="{{ asset('/js/views/user/fichaHabitacion.js') }} " defer></script>
 
 @endsection
@@ -22,11 +23,11 @@
         <div class="flex flex-col w-1/2 p-4">
             <img width="400px" src="{{ $habitacion['imagen'] }}" />
             <div  class=" mt-8" >
-                <img id="fav" class="unfilled" src="/images/icons/unfilled.png"></img>
+                <img id="fav" class="unfilled" src="/images/icons/unfilled.png" title="añadir a favoritos"></img>
             </div>
-            
+            <div class="hidden"><a target="_blank"  href="https://icons8.com/icon/87/heart">Heart</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a></div>
         </div>
-
+        
         <div class="flex flex-col w-1/2 mt-4 xl:mt-12">
          
             <div class="flex flex-col xl:flex-row xl:mt-8 xl:text-xl">
@@ -54,20 +55,18 @@
         <button id="startReserva" class="py-2 mt-8 px-5 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-75" id="hacerReserva">Reservar</button>  
     </div>
 </div>
-</div>
 
 <div >
-<div id="reservando" class="invisible -translate-y-96 xl:-translate-y-96" >
+<div id="reservando" class="hidden" >
 
     <div id="dates" ><!-- advertir al usuario, doble click en un dia si es el mismo dia-->
         <label class="xl:text-2xl ">Seleccione la fecha de estancia</label><br>
-        <input id="dtRange" type="text" value=""/>
+        <input id="dtRange" />
     </div>
-    <div>
+    <div class="mb-32">
         <p class="mt-8 mb-8" id="diasPrecio">-</p>
         <button id="cancelaReserva" class="py-2 mt-8 px-5 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-75" >Cancelar</button>  
-        <button id="confirmaReserva" class="invisible py-2 mt-8 px-5 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-75" >Confirmar</button>  
+        <button id="confirmaReserva" class="hidden py-2 mt-8 px-5 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-75" >Confirmar</button>  
     </div>
-</div>
 </div>
 @endsection

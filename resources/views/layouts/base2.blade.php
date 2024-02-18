@@ -10,7 +10,15 @@
         <script src="https://cdn.tailwindcss.com"></script>
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-        
+        <style>
+            @font-face {
+            font-family: 'font1';
+            src: url('{{URL::asset("/public/fonts/font1.tff")}}');
+            }
+            html {
+            font-family: font1;
+            }
+        </style>
         @yield('scripts')
     </head>
     <body class="">
@@ -26,16 +34,16 @@
                     <div id="header" > <!-- logo vectorial -->
                         <div class="bg-sky-400 w-full" style="height:200px;"></div>
                     </div>
-                    <div class="lg:invisible sticky top-0">
+                    <div class="lg:hidden sticky top-0">
                         <button id="toggleMenu" class=" block text-gray-800 focus:outline-none">
                             <svg class="h-8 w-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M4 6H20M4 12H20M4 18H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </button>
                     </div>
-                    <div id="menu" class="invisible lg:visible bg-gray-200 sticky top-8 -translate-y-8 py-4">
+                    <div id="menu" class="hidden lg:block bg-gray-200 sticky top-8 -translate-y-8 py-4">
                         <ul class="flex lg:flex-row flex-col justify-around ">
-                            <li id="closeMenu" class="lg:invisible" style="align-self: flex-end;"><a href="#"  class=" py-2 px-4 text-gray-800 hover:bg-gray-300">x</a></li>
+                            <li id="closeMenu" class="lg:hidden" style="align-self: flex-end;"><a href="#"  class=" py-2 px-4 text-gray-800 hover:bg-gray-300">x</a></li>
                             <li><a href="{{ route('user.inicio') }}" class=" py-2 px-4 text-gray-800 hover:bg-gray-300">Inicio</a></li>
                             <li><a href="{{ route('user.reservas') }}" class=" py-2 px-4 text-gray-800 hover:bg-gray-300">Reservas</a></li>
                             <li><a href="{{ route('user.favoritos') }}" class=" py-2 px-4 text-gray-800 hover:bg-gray-300">Favoritos</a></li>
@@ -69,10 +77,10 @@
             var menu = document.getElementById('menu')
             var closeMenu = document.getElementById('closeMenu')
             btnMenu.addEventListener('click', () => {
-                menu.classList.toggle('invisible');
+                menu.classList.toggle('hidden');
             });
             closeMenu.addEventListener('click', () => {
-                menu.classList.toggle('invisible');
+                menu.classList.toggle('hidden');
             });
         </script>
     </body>

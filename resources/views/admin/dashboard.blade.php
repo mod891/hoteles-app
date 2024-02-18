@@ -4,6 +4,8 @@
 @section('scripts')
 <script src="{{ asset('/js/api/main.js') }} "></script>
 <script src="{{ asset('/js/views/admin/dashboard.js') }} " defer></script>
+<script src="{{ asset('/js/views/admin/tableUsers.js') }} " defer></script>
+<script src="{{ asset('/js/views/admin/tableHotels.js') }} " defer></script>
 @endsection
 @section('content')
     <div id="admin-view" class="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
@@ -14,7 +16,6 @@
         </div>
     @endauth
 
-        <!--sm:justify-between -->
         <div class="flex flex-row justify-center">
             <div class="tab mx-12">
                 <a href="#" id="hoteles">Hoteles</a>

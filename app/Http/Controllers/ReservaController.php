@@ -12,7 +12,6 @@ class ReservaController extends Controller
 {
     function store(Request $request) {
 
-
         extract($request->all());
         $userId = $request->user()->id;
 
@@ -33,8 +32,9 @@ class ReservaController extends Controller
 
         $userId = $request->user()->id;
         $reservas = DB::table('reservas')
-            ->where('user_id',$userId)
+            ->where('user_id',$userId) 
             ->where('fecha_ini','>',(new \DateTime())->format('Y-m-d'))
+            ->orWhere('fecha_fin','>',(new \DateTime())->format('Y-m-d'))
             ->get();
 
         $cards = [];
@@ -84,7 +84,28 @@ class ReservaController extends Controller
         echo $html;
     }
 
-    
+    function reservedDays(Request $request) {
+
+        extract($request->all());
+        $rangos = [];
+        $dias = [];
+        $ini = null; 
+        $reservas = DB::table('reservas')
+            ->where('room_id',$room)->get();
+
+        for ($i=0; $i<sizeof($reservas); $i++) {
+            $ini = new \DateTime($reservas[$i]->fecha_ini);
+            $ndias = $reservas[$i]->dias;
+            for ($j=0; $j<$ndias; $j++) {
+                $dias[] = $ini->format('Y-m-d');
+                $ini->modify('+1 day');
+            }
+        }
+        // las reservas pueden ser hechas solo dias consecutivos      
+        return response()->json($dias);
+    }
+
+
     function visitados(Request $request) {
 
         return view('user.visitados');
