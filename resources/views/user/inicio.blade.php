@@ -16,8 +16,8 @@
 
 @section('content')
 
-
-        <div id="filtros" class="flex flex-col lg:flex-row mx-auto">
+        
+        <div id="filtros" class="flex flex-col lg:flex-row mx-auto mb-8">
             <div>
                 <div>
                     <img id="camaMatrimonioFiltro" class="disabled mt-1 mr-8 lg:mr-2 filtro-img" src="/images/icons/check_no.png" title="filtro desabilitado"></img>

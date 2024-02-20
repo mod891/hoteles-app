@@ -87,7 +87,6 @@ class ReservaController extends Controller
     function reservedDays(Request $request) {
 
         extract($request->all());
-        $rangos = [];
         $dias = [];
         $ini = null; 
         $reservas = DB::table('reservas')

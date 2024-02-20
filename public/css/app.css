@@ -1,3 +1,11 @@
+:root {
+  --color1: #00b4c5;
+  --color2: rgb(34 211 238); /* cian-400 */
+  --color3: #2dc554;
+  --color4: #2546f0;
+  --color5: #f5403f;
+  --color6: #a5f65e;
+}
 .input-error {
     border: solid 2px red;
 }

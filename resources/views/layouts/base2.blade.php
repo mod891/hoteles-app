@@ -21,18 +21,21 @@
         </style>
         @yield('scripts')
     </head>
-    <body class="">
-        <div class="container mx-auto">
+    <body class="bg-slate-50"  class="">
+        <div class="w-full mx-auto"><!-- container -->
             <div class="flex flex-row ">
 
-                <div class="flex flex-col bg-cyan-600 w-0 md:w-1/5">
+                <div style="background-color: var(--color1);" class="flex flex-col  w-0 md:w-1/5">
       
                 </div>
         
-                <div class="flex flex-col w-full text-center md:w-3/5"><!--   w-full md:flex md:flex-col sm:w-7 md:w-16 lg:w-1/2 xl:w-full   -->
+                <div class="flex flex-col w-full text-center md:w-3/5"><!--bg-cyan-600   w-full md:flex md:flex-col sm:w-7 md:w-16 lg:w-1/2 xl:w-full   -->
                     
-                    <div id="header" > <!-- logo vectorial -->
-                        <div class="bg-sky-400 w-full" style="height:200px;"></div>
+                    <div id="header" > 
+                        <!-- logo vectorial -->
+                        <div class="w-full" style="background-color: var(--color2); height:200px;">
+                            <img class="mx-auto py-8" src="{{ asset('images/logo.svg') }}"></img>
+                        </div>
                     </div>
                     <div class="lg:hidden sticky top-0">
                         <button id="toggleMenu" class=" block text-gray-800 focus:outline-none">
@@ -41,7 +44,7 @@
                             </svg>
                         </button>
                     </div>
-                    <div id="menu" class="hidden lg:block bg-gray-200 sticky top-8 -translate-y-8 py-4">
+                    <div id="menu" style="background-color: var(--color3);" class="hidden lg:block sticky top-8 -translate-y-8 py-4">
                         <ul class="flex lg:flex-row flex-col justify-around ">
                             <li id="closeMenu" class="lg:hidden" style="align-self: flex-end;"><a href="#"  class=" py-2 px-4 text-gray-800 hover:bg-gray-300">x</a></li>
                             <li><a href="{{ route('user.inicio') }}" class=" py-2 px-4 text-gray-800 hover:bg-gray-300">Inicio</a></li>
@@ -55,21 +58,20 @@
                     </div>
                     
 
-                    <!-- buscador habitaciones / provincia / municipio
-                        + checkbox caracteristicas -->
-                                                                    
+                    <!--begin contenido -->
                     @yield('content')
-                    
+                    <!-- end contenido -->
+                    <div style="background-color: var(--color2)" class="flex flex-row h-36 mt-16">
+
+                    </div>
                 </div>
 
-                <div class="flex flex-col bg-cyan-600 sm:w-0 md:w-1/5">
+                <div style="background-color: var(--color1);" class="flex flex-col sm:w-0 md:w-1/5">
                     
                 </div>
 
             </div>
-            <div class="flex flex-row h-56 bg-sky-400">
-
-            </div>
+            
             
         </div>
         <script defer>

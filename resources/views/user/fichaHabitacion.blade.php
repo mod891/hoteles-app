@@ -13,7 +13,6 @@
 @endsection
 @section('content')
 
-<div>
 <div id="main" class="m-4 w-full rounded-lg" >
     <div class="flex flex-row justify-center text-xl pt-4">
         Habitación hotel {{ $habitacion['nombre'] }}
@@ -57,16 +56,17 @@
 </div>
 
 <div >
-<div id="reservando" class="hidden" >
+    <div id="reservando" class="hidden" >
 
-    <div id="dates" ><!-- advertir al usuario, doble click en un dia si es el mismo dia-->
-        <label class="xl:text-2xl ">Seleccione la fecha de estancia</label><br>
-        <input id="dtRange" />
-    </div>
-    <div class="mb-32">
-        <p class="mt-8 mb-8" id="diasPrecio">-</p>
-        <button id="cancelaReserva" class="py-2 mt-8 px-5 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-75" >Cancelar</button>  
-        <button id="confirmaReserva" class="hidden py-2 mt-8 px-5 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-75" >Confirmar</button>  
+        <div id="dates" ><!-- advertir al usuario, doble click en un dia si es el mismo dia-->
+            <label class="xl:text-2xl ">Seleccione la fecha de estancia</label><br>
+            <input id="dtRange" />
+        </div>
+        <div class="mb-32">
+            <p class="mt-8 mb-8" id="diasPrecio">-</p>
+            <button id="cancelaReserva" class="py-2 mt-8 px-5 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-75" >Cancelar</button>  
+            <button id="confirmaReserva" class="hidden py-2 mt-8 px-5 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-75" >Confirmar</button>  
+        </div>
     </div>
 </div>
 @endsection

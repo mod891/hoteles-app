@@ -1,7 +1,7 @@
 
 @props(['data'])
 
-<div class="m-4 border-4 w-full rounded-lg" onClick="window.location = '{{ $data['url'] }}' ">
+<div style="background-color:var(--color6)" class="m-4 border-4 w-full rounded-lg" onClick="window.location = '{{ $data['url'] }}' ">
     <div class="flex flex-row justify-center text-xl pt-4">
         Habitación hotel {{ $data['nombre'] }}
     </div>
