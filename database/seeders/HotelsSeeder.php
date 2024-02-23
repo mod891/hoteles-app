@@ -21,19 +21,32 @@ class HotelsSeeder extends Seeder
             "municipio" => "Almeria",
             "provincia" => "Almeria",
             "telefono" => "+34675484785",
-            "imagen" => null,
+            "imagen" => "https://fpalandalus.sirv.com/Imgproj/5x132f9iult1.jpg",
+
         ]);
         $hotel2 = new Hotel([
-            "nombre" => "Barracedo",
+            "nombre" => "Cayosa del pino",
             "direccion" => "C/ Salvador 55",
             "municipio" => "Alhama de Granada",
             "provincia" => "Granada",
             "telefono" => "958756858",
-            "imagen" => null,
+            "imagen" => "https://fpalandalus.sirv.com/Imgproj/IPyJtS8FTJ.jpg",
+
+        ]);
+
+        $hotel3 = new Hotel([
+            "nombre" => "Huelvates jolgorio",
+            "direccion" => "C/ Albuquerque 67",
+            "municipio" => "Aracena",
+            "provincia" => "Huelva",
+            "telefono" => "958756858",
+            "imagen" => "https://fpalandalus.sirv.com/Imgproj/qDfziSZRoV.jpg",
+
         ]);
 
         $hotel1->saveOrFail();
         $hotel2->saveOrFail();
+        $hotel3->saveOrFail();
 
         $room1 = new Room([
             "hotel_id" => $hotel1->id,
@@ -44,7 +57,6 @@ class HotelsSeeder extends Seeder
             "cama_matrimonio" => 1,
             "descripcion" => "se puede fumar, con minibar, con balcón, con cama de matrimonio",
             "precio" => 140.00,
-            "imagen" => "https://fpalandalus.sirv.com/Imgproj/hab-gtnjivyk3m.jpg",
         ]);
 
         $room2 = new Room([
@@ -56,7 +68,6 @@ class HotelsSeeder extends Seeder
             "cama_matrimonio" => 0,
             "descripcion" => "con minibar, con cama individual",
             "precio" => 80.00,
-            "imagen" => "https://fpalandalus.sirv.com/Imgproj/hab-wwd4gvcnp3.jpg",
         ]);
 
         $room3 = new Room([
@@ -68,12 +79,36 @@ class HotelsSeeder extends Seeder
             "cama_matrimonio" => 0,
             "descripcion" => "se puede fumar, con minibar, con balcón, con cama individual",
             "precio" => 120.00,
-            "imagen" => "https://fpalandalus.sirv.com/Imgproj/hab-jctg1crjwg.jpg",
         ]);
         
+        $room4 = new Room([
+            "hotel_id" => $hotel3->id,
+            "fumadores" => 1,
+            "minibar" => 1,
+            "minicadena_wifi" => 1,
+            "balcon" => 1,
+            "cama_matrimonio" => 1,
+            "descripcion" => "se puede fumar, con minibar, con balcón, con cama individual",
+            "precio" => 150.00,
+        ]);
+        
+        $room5 = new Room([
+            "hotel_id" => $hotel3->id,
+            "fumadores" => 1,
+            "minibar" => 1,
+            "minicadena_wifi" => 1,
+            "balcon" => 0,
+            "cama_matrimonio" => 1,
+            "descripcion" => "se puede fumar, con minibar, con balcón, con cama individual",
+            "precio" => 170.00,
+        ]);
+
         $room1->saveOrFail();
         $room2->saveOrFail();
         $room3->saveOrFail();
+        $room4->saveOrFail();
+        $room5->saveOrFail();
+
 
     }
 }

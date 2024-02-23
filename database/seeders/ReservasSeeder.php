@@ -21,7 +21,7 @@ class ReservasSeeder extends Seeder
             "room_id" => 3,
             "user_id" => 2,
             "fecha_ini" => "2024-01-25",
-            "fecha_fin" => "2024-01-25",
+            "fecha_fin" => "2024-01-26",
             "dias" => 1,
             "precio" => 120.00,
         ]);
@@ -29,24 +29,24 @@ class ReservasSeeder extends Seeder
             "room_id" => 2,
             "user_id" => 2,
             "fecha_ini" => "2024-03-20",
-            "fecha_fin" => "2024-03-23",
-            "dias" => 3,
+            "fecha_fin" => "2024-03-27",
+            "dias" => 7,
             "precio" => 240.00,
         ]);
         $reserva2 = new Reserva([
             "room_id" => 3,
             "user_id" => 2,
             "fecha_ini" => "2024-04-10",
-            "fecha_fin" => "2024-04-12",
-            "dias" => 3,
+            "fecha_fin" => "2024-04-17",
+            "dias" => 7,
             "precio" => 360.00,
         ]);
         $reserva3 = new Reserva([
             "room_id" => 3,
             "user_id" => 3,
             "fecha_ini" => "2024-06-15",
-            "fecha_fin" => "2024-06-17",
-            "dias" => 3,
+            "fecha_fin" => "2024-06-19",
+            "dias" => 4,
             "precio" => 360.00,
         ]);
 

@@ -27,14 +27,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('hotel',[HotelController::class, 'index']);
 Route::get('hoteles',[HotelController::class, 'hotels']);
 Route::post('hotel',[HotelController::class, 'store']);
+
+Route::post('hotels',[HotelController::class, 'hotelsList']);
+Route::get('favorito',[HotelController::class, 'favorito']);
+Route::post('toogleFavorito',[HotelController::class, 'toogleFavorito']);
+
 Route::delete('hotel/{id}',[HotelController::class,'delete']);
 Route::put('hotel/{id}',[HotelController::class, 'edit']);
+Route::get('favoritos',[HotelController::class, 'favoritosList']);
+Route::get('provincias',[HotelController::class, 'provincias']);
 
 Route::post('room',[RoomController::class, 'store']);
 Route::post('rooms',[RoomController::class, 'rooms']);
-Route::post('toogleFavorito',[RoomController::class, 'toogleFavorito']);
-Route::get('favorito',[RoomController::class, 'favorito']);
-Route::get('favoritos',[RoomController::class, 'favoritosList']);
 
 Route::get('user',[UserController::class,'index']);
 Route::get('usuarios',[UserController::class,'users']);
@@ -44,5 +48,6 @@ Route::put('user/{id}',[UserController::class,'edit']);
 
 Route::post('reserva', [ReservaController::class,'store']);
 Route::get('reservas',[ReservaController::class, 'reservedList']);
-Route::get('reserva/dias',[ReservaController::class, 'reservedDays']);
+//Route::get('reserva/dias',[ReservaController::class, 'reservedDays']);
 Route::get('visitados',[ReservaController::class, 'visitedList']);
+Route::get('reserva/pdf',[ReservaController::class, 'pdf']);

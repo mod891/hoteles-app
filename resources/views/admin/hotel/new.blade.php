@@ -25,7 +25,9 @@
       <!-- Provincia -->
       <div class="mb-4">
         <label for="provincia" class="block text-gray-700 font-semibold">Provincia</label>
-        <input type="text" id="provincia" name="provincia" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+        <select id="provincia" name="provincia" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+          <option value="">Seleccione provincia</option>
+        </select>
         <div class="input-message-error" id="provinciaError"></div>
       </div>
       <!-- Municipio -->

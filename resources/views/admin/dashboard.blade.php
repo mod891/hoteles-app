@@ -1,4 +1,4 @@
-@extends('layouts.base')
+@extends('layouts.base2')
 
 @section('title','panel de administración')
 @section('scripts')
@@ -8,13 +8,9 @@
 <script src="{{ asset('/js/views/admin/tableHotels.js') }} " defer></script>
 @endsection
 @section('content')
-    <div id="admin-view" class="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
+    <div id="admin-view" class="w-10/12 mx-auto">
 
-    @auth
-        <div class="flex flex-row justify-end">
-            <a href="{{ route('logout') }}" >Log out</a>
-        </div>
-    @endauth
+    
 
         <div class="flex flex-row justify-center">
             <div class="tab mx-12">

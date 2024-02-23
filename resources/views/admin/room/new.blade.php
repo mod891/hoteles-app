@@ -80,17 +80,6 @@
         </div>
       </div>
 
-     
-
-      <!-- Imagen -->
-      <div class="mb-4">
-        <div class="flex flex-row">
-          <label for="imagen" class="w-1/2 block text-gray-700 font-semibold">Foto</label>
-          <input type="file" id="imagen" name="imagen" class="w-full py-2 focus:outline-none">
-          <div class="input-message-error" id="imagenError"></div>
-        </div>
-      </div>
-
       <!-- Precio -->
       <div class="mb-4">
         <div class="flex flex-row">

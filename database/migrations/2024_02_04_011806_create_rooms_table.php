@@ -26,7 +26,6 @@ return new class extends Migration
             $table->boolean('cama_matrimonio');
             $table->boolean('minicadena_wifi');
             $table->float('precio',6,2);
-            $table->string('imagen');
         });
     }
 

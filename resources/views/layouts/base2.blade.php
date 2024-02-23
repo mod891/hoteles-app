@@ -46,12 +46,14 @@
                     </div>
                     <div id="menu" style="background-color: var(--color3);" class="hidden lg:block sticky top-8 -translate-y-8 py-4">
                         <ul class="flex lg:flex-row flex-col justify-around ">
+                            @auth
                             <li id="closeMenu" class="lg:hidden" style="align-self: flex-end;"><a href="#"  class=" py-2 px-4 text-gray-800 hover:bg-gray-300">x</a></li>
+                            @if(Auth::user()->rol != 'admin')
                             <li><a href="{{ route('user.inicio') }}" class=" py-2 px-4 text-gray-800 hover:bg-gray-300">Inicio</a></li>
                             <li><a href="{{ route('user.reservas') }}" class=" py-2 px-4 text-gray-800 hover:bg-gray-300">Reservas</a></li>
                             <li><a href="{{ route('user.favoritos') }}" class=" py-2 px-4 text-gray-800 hover:bg-gray-300">Favoritos</a></li>
                             <li><a href="{{ route('user.visitados') }}" class=" py-2 px-4 text-gray-800 hover:bg-gray-300">Visitados</a></li>
-                            @auth
+                            @endif
                             <li><a href="{{ route('logout') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log out</a></li>
                             @endauth
                         </ul>

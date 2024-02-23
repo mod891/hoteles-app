@@ -28,24 +28,32 @@ class ReservaController extends Controller
 
     }
 
+
+    function pdf(Request $request) {
+
+    }
+
+
     function reservedList(Request $request) {
 
         $userId = $request->user()->id;
+       
+        $fecha = (new \DateTime())->format('Y-m-d');
+        //DB::enableQueryLog(); dd(DB::getQueryLog());
         $reservas = DB::table('reservas')
-            ->where('user_id',$userId) 
-            ->where('fecha_ini','>',(new \DateTime())->format('Y-m-d'))
-            ->orWhere('fecha_fin','>',(new \DateTime())->format('Y-m-d'))
+            ->whereRaw('user_id = ?  and (`fecha_ini` > ? or `fecha_fin` > ?)',[$userId,$fecha,$fecha])
             ->get();
-
         $cards = [];
         $html = "";
+        
         for ($i=0; $i<sizeof($reservas); $i++) {
             
             $cards[] = [
-                'url' => 'room/'.Reserva::find($reservas[$i]->id)->room()->first()->id,
+                'url' => 'hotel/'.Reserva::find($reservas[$i]->id)->room()->first()->hotel()->first()->id,
                 'text1' => 'Reserva ',
+                'pdf' => 'reserva/'.$reservas[$i]->id.'/pdf',
                 'nombre' => Reserva::find($reservas[$i]->id)->room()->first()->hotel()->first()->nombre,
-                'imagen' => Reserva::find($reservas[$i]->id)->room()->get()[0]->imagen,
+                'imagen' => Reserva::find($reservas[$i]->id)->room()->get()[0]->hotel()->first()->imagen,
                 'fechaIni' => (new \DateTime($reservas[$i]->fecha_ini))->format('d/m/Y'),
                 'fechaFin' => (new \DateTime($reservas[$i]->fecha_fin))->format('d/m/Y'),
                 'precio' => $reservas[$i]->precio
@@ -60,19 +68,22 @@ class ReservaController extends Controller
     function visitedList(Request $request) {
 
         $userId = $request->user()->id;
+        
         $reservas = DB::table('reservas')
-            ->where('user_id',$userId)
-            ->where('fecha_fin','<',(new \DateTime())->format('Y-m-d'))
+            ->where([
+                ['user_id','=',$userId],
+                ['fecha_fin','<',(new \DateTime())->format('Y-m-d')]
+            ])
             ->get();
 
         $cards = [];
         $html = "";
         for ($i=0; $i<sizeof($reservas); $i++) {
             $cards[] = [
-                'url' => 'room/'.Reserva::find($reservas[$i]->id)->room()->first()->id,
+                'url' => 'hotel/'.Reserva::find($reservas[$i]->id)->room()->first()->hotel()->first()->id,
                 'text1' => 'Visitado',
                 'nombre' => Reserva::find($reservas[$i]->id)->room()->first()->hotel()->first()->nombre, // check
-                'imagen' => Reserva::find($reservas[$i]->id)->room()->get()[0]->imagen, // check
+                'imagen' => Reserva::find($reservas[$i]->id)->room()->get()[0]->hotel()->first()->imagen, // check
                 'fechaIni' => (new \DateTime($reservas[$i]->fecha_ini))->format('d/m/Y'),
                 'fechaFin' => (new \DateTime($reservas[$i]->fecha_fin))->format('d/m/Y'),
                 'precio' => $reservas[$i]->precio
@@ -83,7 +94,7 @@ class ReservaController extends Controller
  
         echo $html;
     }
-
+/*
     function reservedDays(Request $request) {
 
         extract($request->all());
@@ -103,7 +114,7 @@ class ReservaController extends Controller
         // las reservas pueden ser hechas solo dias consecutivos      
         return response()->json($dias);
     }
-
+*/
 
     function visitados(Request $request) {
 

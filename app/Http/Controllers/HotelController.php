@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Hotel;
+use App\Models\Favorito;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\DB;
 
 include_once('../vendor/sirv/sirv-rest-api-php/sirv.api.class.php');
 
@@ -21,13 +25,187 @@ class HotelController extends Controller
         return Hotel::paginate(1);
     }
 
-    function randomName() {
-        $chars = "abcdefghijklmnopqrstuvwxyz123456789_";
-        $name = "";
-        for($i=0; $i<10; $i++)
-        $name.= $chars[rand(0,strlen($chars))];
-        return $name;
+        
+    function hotelsList(Request $request) {
+
+        $dataFiltros = $request->all();
+        $dbKey = ["camaMatrimonio"=>"cama_matrimonio","balcon" => "balcon","minibar" => "minibar","fumadores" => "fumadores","minicadenaWifi" => "minicadena_wifi"];
+        $filtros = [];
+        $hoteles = null;
+        $html = "";
+        $fechaIni = $dataFiltros['fechaIni'];
+        $fechaFin = $dataFiltros['fechaFin'];
+        $first = true;
+        foreach ($dataFiltros as $key => $val) {
+            if ($val == 1) 
+                $filtros[] = [$dbKey[$key],'=',1]; 
+        }
+        /*
+        if (sizeof($filtros) == 0) 
+            $hoteles = Hotel::all();
+        else 
+            $hoteles = Hotel::where($filtros)->get();
+*/
+        
+        $conn = DB::connection()->getPdo();
+
+        if ($fechaFin == null && $fechaIni == null) { 
+            $sql = "select hotel_id, id, precio from rooms order by precio desc";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+        } else {
+            $first = false;
+            $sql = "select hotel_id, id, precio from rooms where id not in (
+                select room_id from reservas where ? between fecha_ini and fecha_fin or ?  between fecha_ini and fecha_fin) order by precio desc";
+                $stmt = $conn->prepare($sql);
+                $stmt->execute([$fechaIni,$fechaFin]);
+        }
+        
+        $disponiblesEnFecha = $stmt->fetchAll();
+                
+        $hotelRooms = [];
+        for ($i=0; $i<sizeof($disponiblesEnFecha); $i++) {
+            $hotelRooms[$disponiblesEnFecha[$i]['hotel_id']]['precio'] = $disponiblesEnFecha[$i]['precio'];
+            $hotelRooms[$disponiblesEnFecha[$i]['hotel_id']]['rooms'][] = [ 'id' => $disponiblesEnFecha[$i]['id'], 'precio' => $disponiblesEnFecha[$i]['precio'] ];
+            
+        }
+             
+           // dd($disponiblesEnFecha);
+          // dd($hotelRooms);
+        
+        $cards = [];
+        $urlData = null;
+
+        
+        
+        foreach ($hotelRooms as $hotelId => $values) { 
+
+            if ($first) { // primera carga inicio.html sin filtros
+                $urlData = '';
+            } else {
+                $urlData = [];
+                $dias = intval((date_diff(new \DateTime($fechaIni), new \DateTime($fechaFin)))->format('%a'));
+                $urlData['rooms'] = $values['rooms'];
+                $urlData['fechas'] = ['fechaIni' => $fechaIni,'fechaFin' => $fechaFin, 'dias' => $dias ];
+                $urlData = '?b='.base64_encode( json_encode($urlData) );
+            }
+
+            //dd($values['rooms']);
+            $hotel = Hotel::find($hotelId);
+            $cards[] = [
+                'url' => 'hotel/'.$hotel->id.$urlData,
+                'nombre' => $hotel->nombre,
+                'imagen' => $hotel->imagen,
+                'municipio' => $hotel->municipio,
+                'provincia' => $hotel->provincia,
+                'habitaciones' => sizeof($values['rooms']) > 1? sizeof($values['rooms']).' habitaciones disponibles':sizeof($values['rooms']).' habitacion disponible',
+                'idRooms' => $values['rooms'],
+                'precio' => 'Desde '.$values['precio'].' la noche'
+            ];
+        }
+
+        for ($i=0; $i<sizeof($cards); $i++) 
+            $html .= View::make("components.card")->with("data", $cards[$i])->render();
+
+       // dd($cards);
+       
+        echo $html;
     }
+
+
+    function favorito(Request $request) {
+
+        extract($request->all());
+        $userId = $request->user()->id; 
+        $hotelId = $hotel;
+    
+        $existe = DB::table('favoritos')->select(DB::raw('count(*) as existe'))->where([
+          ['user_id', '=', $userId],
+          ['hotel_id', '=', $hotelId],// ahora hotel_id
+        ])->get()->first()->existe;
+    
+        return response()->json(['favorito' => $existe]);
+    
+    }
+
+    function toogleFavorito(Request $request) {
+
+        extract($request->all());
+        $userId = $request->user()->id; 
+        $hotelId = $hotel;
+        $status = 0;
+        $action = '';
+        // si existe borra, si no existe añade
+        $existe = DB::table('favoritos')->select(DB::raw('count(*) as existe'))->where([
+            ['user_id', '=', $userId],
+            ['hotel_id', '=', $hotelId],
+        ])->get()->first()->existe;
+
+        if ($existe == 0) {
+
+            $favorito = new Favorito();
+            $favorito->user_id = $userId;
+            $favorito->hotel_id = $hotelId;
+            $favorito->save();
+            $status = 201;
+            
+        } else if ($existe == 1) {
+
+            $favorito = Favorito::where([
+            ['user_id', '=', $userId],
+            ['hotel_id', '=', $hotelId],
+            ])->delete();
+            $status = 204;
+            
+        }
+
+        return response('',$status);
+
+    }
+
+    function favoritos(Request $request) {
+        return view('user.favoritos');
+      }
+    
+    function favoritosList(Request $request) {
+        $userId = $request->user()->id;
+        $favoritos = Favorito::where('user_id',$userId)->get();
+        $html = '';
+        for ($i=0; $i<sizeof($favoritos); $i++) {
+            $hotel = Hotel::find($favoritos[$i]->hotel_id);
+            $data = [
+                'url' => 'hotel/'.$hotel->id,
+                'nombre' => $hotel->nombre,
+                'imagen' => $hotel->imagen,
+                'municipio' => $hotel->municipio,
+                'provincia' => $hotel->provincia,
+                'habitaciones' => 'count(*) habitaciones',
+                'precio' => 'hab + barata'
+            ];
+        
+            $html .= View::make("components.card")->with("data", $data)->render();
+        } 
+        
+        echo $html;
+    }
+
+    function ficha(Request $request) {
+        $id = explode('/',$request->getRequestUri())[2];
+        $obj = Hotel::find($id);
+
+        $hotel = $obj->getAttributes();
+        $habitaciones = $obj->rooms;
+        
+        for ($i=0; $i<sizeof($habitaciones); $i++) {
+            $hotel['habitaciones'][] = [
+                'id' => $habitaciones[$i]->id,
+                'precio' => $habitaciones[$i]->precio,
+            ];
+        }
+
+        return view('user.fichaHotel',compact('hotel'));
+    }
+
 
     function uploadImg($localPath) {
 
@@ -40,8 +218,7 @@ class HotelController extends Controller
             'Sirv PHP client'
         );
  
-        $randomName = $this->randomName();
-        $remotePath = 'Imgproj/'.$randomName.'.jpg';
+        $remotePath = 'Imgproj/'.Str::random(10).'.jpg';
         $sirv->uploadFile($localPath, $remotePath);
         $url = 'https://fpalandalus.sirv.com/'.$remotePath;
         return $url;
@@ -56,7 +233,7 @@ class HotelController extends Controller
         $hotel->provincia = $provincia;
         $hotel->municipio = $municipio;
         $hotel->telefono = $telefono;
-        $hotel->imagen = null; // $this->uploadImg($imagen->getPathName()); sin uso de momento la imagen del hotel
+        $hotel->imagen = $this->uploadImg($imagen->getPathName()); 
         $hotel->save();
 
        return redirect()->to('/room/create/'.$hotel->id);
@@ -72,13 +249,18 @@ class HotelController extends Controller
     function edit(Request $request) {
 
         extract($request->all());
+
+        // imagen antigua, no hay que subir otra imagen distinta
+        if (gettype($imagen) != "string" ) 
+            $imagen = $this->uploadImg($imagen->getPathName());
+
         $hotel = Hotel::find($id);
         $hotel->nombre = $nombre;
         $hotel->direccion = $direccion;
         $hotel->provincia = $provincia;
         $hotel->municipio = $municipio;
         $hotel->telefono = $telefono;
-        $hotel->imagen = null; // check this
+        $hotel->imagen = $imagen; 
         $hotel->save(); 
         return response()->json(['success' => true]);  
     }
@@ -88,11 +270,18 @@ class HotelController extends Controller
         $id = explode('/',$request->getRequestUri())[3];
         $obj = Hotel::find($id);
         $hotel = $obj->getAttributes();
-        return view('hotel.edit',compact('hotel'));
+       // $hotel['imagen'] = explode('/',$hotel['imagen'])[4];
+        return view('admin.hotel.edit',compact('hotel'));
     }
 
     function createForm(Request $request) {
 
         return view('admin.hotel.new');
+    }
+
+    function provincias(Request $request) {
+
+        $provincias = DB::table('hotels')->select(DB::raw('distinct provincia'))->get();
+        return response()->json($provincias);
     }
 }

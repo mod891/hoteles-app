@@ -1,17 +1,34 @@
-<html>
-    <head>
-        <title>Inicio de sesion</title>
-    </head>
-    <body>
+@extends('layouts.base')
+@section('title','Registro')
+
+@section('scripts')
+@endsection
+@section('content') 
+<div id="login-form" class="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
+    <h2 class="text-2xl font-semibold mb-4">Inicia sesión</h2>
+
         <form method="POST" action="{{ route('authenticate') }}">
             @csrf
-            <input id="email" type="email" name="email" value="{{ old('email') }}">
-            <input id="password" name="password" type="password">
-            <button type="submit" class="btn btn-dark btn-block">Enviar</button>
-            @if ($errors->has('email'))
-                <span class="text-danger">{{ $errors->first('email') }}</span>
-            @endif
+            <!-- Usuario -->
+            <div class="mb-4">
+                <label for="email" class="block text-gray-700 font-semibold">Email</label>
+                <input id="email" type="email" name="email" value="{{ old('email') }}">
+                <div class="input-message-error" id="nombreError"></div>
+            </div>
+            <!-- Contraseña -->
+            <div class="mb-4">
+                <label for="apellidos" class="block text-gray-700 font-semibold">Contraseña</label>
+                <input id="password" name="password" type="password">
+                <div class="input-message-error" id="nombreError"></div>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
+                Login
+                </button>
+            </div>
         </form>
         admin@admin.com 
-    </body>
-</html>
+@endsection
+
+        

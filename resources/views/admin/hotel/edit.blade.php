@@ -24,7 +24,9 @@
       <!-- Provincia -->
       <div class="mb-4">
         <label for="provincia" class="block text-gray-700 font-semibold">Provincia</label>
-        <input type="text" id="provincia" name="provincia" value=" {{ $hotel['provincia'] }} "class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+        <select id="provincia" name="provincia" selected="{{ $hotel['provincia'] }}" class="oldval-{{ $hotel['provincia'] }} w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+          <option value="">Seleccione provincia</option>
+        </select>
         <div class="input-message-error" id="provinciaError"></div>
       </div>
       <!-- Municipio -->
@@ -43,7 +45,11 @@
       <!-- Imagen -->
       <div class="mb-4">
         <label for="imagen" class="block text-gray-700 font-semibold">Imagen</label>
-        <input type="file" id="imagen" name="imagen" class="w-full py-2 focus:outline-none">
+        <div class="">
+          <input type="text" id="oldImagen" name="oldImagen" placeholder="{{ explode('/',$hotel['imagen'])[4] }}" value="{{ $hotel['imagen'] }}" class="w-4/5 px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" disabled>
+          <img id="rmOldimagen" style="float:right" class="disabled mt-1 lg:mr-2 filtro-img" src="/images/icons/check_no.png" title="borrar imagen"></img>
+        </div>
+        <input type="file" id="imagen" name="imagen" class="hidden w-full py-2 focus:outline-none">
         <div class="input-message-error" id="imagenError"></div>
       </div>
 

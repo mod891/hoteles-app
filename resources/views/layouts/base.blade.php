@@ -12,8 +12,8 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
         @yield('scripts')
     </head>
-    <body>
-        <div class="container mx-auto">
+    <body style="background-color:var(--color2)">
+        <div class="container mx-auto lg:py-12">
             
             @yield('content')
         </div>

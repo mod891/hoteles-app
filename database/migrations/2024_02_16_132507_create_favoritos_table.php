@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('favoritos', function (Blueprint $table) {
             $table->foreignId('user_id')
                 ->references('id')->on('users');
-            $table->foreignId('room_id')
-                ->references('id')->on('rooms');
+            $table->foreignId('hotel_id')
+                ->references('id')->on('hotels');
             $table->timestamps();
         });
     }
