@@ -44,5 +44,6 @@ use App\Http\Controllers\ReservaController;
 
     Route::get('/reservas', [ReservaController::class, 'reservas'])->name('user.reservas')->middleware('auth');
     Route::get('/visitados', [ReservaController::class, 'visitados'])->name('user.visitados')->middleware('auth');
+    Route::get('reserva/{id}/pdf',[ReservaController::class, 'pdf']);
 
  

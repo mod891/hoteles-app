@@ -30,23 +30,24 @@ class HotelController extends Controller
 
         $dataFiltros = $request->all();
         $dbKey = ["camaMatrimonio"=>"cama_matrimonio","balcon" => "balcon","minibar" => "minibar","fumadores" => "fumadores","minicadenaWifi" => "minicadena_wifi"];
-        $filtros = [];
         $hoteles = null;
         $html = "";
+        $andWhere = '';
+        $hotelRooms = [];
+        $cards = [];
+        $urlData = null;
+        $checks = [];
         $fechaIni = $dataFiltros['fechaIni'];
         $fechaFin = $dataFiltros['fechaFin'];
+        $provincia = $dataFiltros['provincia'];
         $first = true;
+
         foreach ($dataFiltros as $key => $val) {
-            if ($val == 1) 
-                $filtros[] = [$dbKey[$key],'=',1]; 
+            if ($val == 1) {
+                $andWhere .= $dbKey[$key].'=1 and '; 
+                $checks[] = $key;
+            }
         }
-        /*
-        if (sizeof($filtros) == 0) 
-            $hoteles = Hotel::all();
-        else 
-            $hoteles = Hotel::where($filtros)->get();
-*/
-        
         $conn = DB::connection()->getPdo();
 
         if ($fechaFin == null && $fechaIni == null) { 
@@ -55,43 +56,31 @@ class HotelController extends Controller
             $stmt->execute();
         } else {
             $first = false;
-            $sql = "select hotel_id, id, precio from rooms where id not in (
+            $sql = "select hotel_id, id, precio from rooms where ".$andWhere." id not in (
                 select room_id from reservas where ? between fecha_ini and fecha_fin or ?  between fecha_ini and fecha_fin) order by precio desc";
                 $stmt = $conn->prepare($sql);
                 $stmt->execute([$fechaIni,$fechaFin]);
         }
-        
         $disponiblesEnFecha = $stmt->fetchAll();
                 
-        $hotelRooms = [];
         for ($i=0; $i<sizeof($disponiblesEnFecha); $i++) {
             $hotelRooms[$disponiblesEnFecha[$i]['hotel_id']]['precio'] = $disponiblesEnFecha[$i]['precio'];
             $hotelRooms[$disponiblesEnFecha[$i]['hotel_id']]['rooms'][] = [ 'id' => $disponiblesEnFecha[$i]['id'], 'precio' => $disponiblesEnFecha[$i]['precio'] ];
-            
         }
-             
-           // dd($disponiblesEnFecha);
-          // dd($hotelRooms);
-        
-        $cards = [];
-        $urlData = null;
-
-        
         
         foreach ($hotelRooms as $hotelId => $values) { 
-
-            if ($first) { // primera carga inicio.html sin filtros
+            
+            if ($first)  // primera carga inicio.html sin filtros
                 $urlData = '';
-            } else {
+            else {
                 $urlData = [];
                 $dias = intval((date_diff(new \DateTime($fechaIni), new \DateTime($fechaFin)))->format('%a'));
                 $urlData['rooms'] = $values['rooms'];
                 $urlData['fechas'] = ['fechaIni' => $fechaIni,'fechaFin' => $fechaFin, 'dias' => $dias ];
                 $urlData = '?b='.base64_encode( json_encode($urlData) );
             }
-
-            //dd($values['rooms']);
             $hotel = Hotel::find($hotelId);
+
             $cards[] = [
                 'url' => 'hotel/'.$hotel->id.$urlData,
                 'nombre' => $hotel->nombre,
@@ -102,12 +91,30 @@ class HotelController extends Controller
                 'idRooms' => $values['rooms'],
                 'precio' => 'Desde '.$values['precio'].' la noche'
             ];
+
+            if ($provincia != 0 && $hotel->provincia != $provincia) {
+                array_pop($cards);
+            }
+        }
+
+        if (!$first) {
+            $html .= '<div>Hoteles disponibles para el '.(new \DateTime($fechaIni))->format('d/m/Y').' hasta el '.(new \DateTime($fechaFin))->format('d/m/Y');
+            if ($provincia != 0)
+                $html .=' en '.$provincia;
+            if (sizeof($checks)>0) {
+                $html .= ' con ';
+                for ($i=0; $i<sizeof($checks); $i++)
+                    $html .= $checks[$i].', ';
+                $html = substr($html,0,-1);
+            }
+            $html .='</div>';
         }
 
         for ($i=0; $i<sizeof($cards); $i++) 
             $html .= View::make("components.card")->with("data", $cards[$i])->render();
-
-       // dd($cards);
+        
+        if (sizeof($cards) == 0)
+            $html .="<p class='text-2xl mt-16 lg:mt-32 pb-24 lg:pb-56'>No existen hoteles con ese criterio</p>";
        
         echo $html;
     }
@@ -173,14 +180,19 @@ class HotelController extends Controller
         $html = '';
         for ($i=0; $i<sizeof($favoritos); $i++) {
             $hotel = Hotel::find($favoritos[$i]->hotel_id);
+            $precio = 99999999;
+            for ($j=0; $j<sizeof($hotel->rooms); $j++) {
+                if ($hotel->rooms[$i]->precio < $precio)
+                    $precio = $hotel->rooms[$i]->precio;
+            }
             $data = [
                 'url' => 'hotel/'.$hotel->id,
                 'nombre' => $hotel->nombre,
                 'imagen' => $hotel->imagen,
                 'municipio' => $hotel->municipio,
                 'provincia' => $hotel->provincia,
-                'habitaciones' => 'count(*) habitaciones',
-                'precio' => 'hab + barata'
+                'habitaciones' => sizeof($hotel->rooms).' habitaciones disponibles',
+                'precio' => 'Desde '.$precio.'€ la noche'
             ];
         
             $html .= View::make("components.card")->with("data", $data)->render();

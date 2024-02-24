@@ -50,4 +50,3 @@ Route::post('reserva', [ReservaController::class,'store']);
 Route::get('reservas',[ReservaController::class, 'reservedList']);
 //Route::get('reserva/dias',[ReservaController::class, 'reservedDays']);
 Route::get('visitados',[ReservaController::class, 'visitedList']);
-Route::get('reserva/pdf',[ReservaController::class, 'pdf']);

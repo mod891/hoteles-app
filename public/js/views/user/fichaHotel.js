@@ -26,7 +26,7 @@ function init() {
 //  btn reserva disabled hasta seleccionar habitacion
 // caso 2 -> pincha en el enlace sin buscar fecha
 // btn reserva hidden
-    //console.log(location.pathname,location.search)
+
     if (location.search.length != 0) {
         btnReserva.classList.remove('hidden')
         obj = JSON.parse(atob(location.search.substring(3)))

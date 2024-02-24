@@ -16,13 +16,13 @@
             src: url('{{URL::asset("/public/fonts/font1.tff")}}');
             }
             html {
-            font-family: font1;
+                font-family: font1;
             }
         </style>
         @yield('scripts')
     </head>
     <body class="bg-slate-50"  class="">
-        <div class="w-full mx-auto"><!-- container -->
+        <div class="w-full mx-auto">
             <div class="flex flex-row ">
 
                 <div style="background-color: var(--color1);" class="flex flex-col  w-0 md:w-1/5">
@@ -32,7 +32,7 @@
                 <div class="flex flex-col w-full text-center md:w-3/5"><!--bg-cyan-600   w-full md:flex md:flex-col sm:w-7 md:w-16 lg:w-1/2 xl:w-full   -->
                     
                     <div id="header" > 
-                        <!-- logo vectorial -->
+                        <!-- logo vectorial  -->
                         <div class="w-full" style="background-color: var(--color2); height:200px;">
                             <img class="mx-auto py-8" src="{{ asset('images/logo.svg') }}"></img>
                         </div>

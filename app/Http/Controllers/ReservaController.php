@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Reserva;
+use App\Models\Room;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
-
+use Barryvdh\DomPDF\Facade\Pdf;
+ 
 
 class ReservaController extends Controller
 {
@@ -30,7 +32,26 @@ class ReservaController extends Controller
 
 
     function pdf(Request $request) {
+        $data = $request->all();
+       // dd($data,$request);
+        $idReserva = explode('/',$request->getRequestUri())[2];
 
+        $reserva = Reserva::find($idReserva);
+        $room = Room::find($reserva->room_id);
+        $user = $request->user()->getAttributes();
+
+        $data = $reserva->getAttributes();
+        $data['hotel'] = $room->hotel->getAttributes();
+        $data['room'] = $room->getAttributes();
+        $data['room']['fumadores'] =  $data['room']['fumadores']== 1? 'fumadores, ':'no fumadores, ';
+        $data['room']['balcon'] =  $data['room']['balcon']== 1? 'con balcon, ':'sin balcon, ';
+        $data['room']['minibar'] =  $data['room']['minibar']== 1? 'con minibar, ':'sin minibar, ';
+        $data['room']['cama_matrimonio'] =  $data['room']['cama_matrimonio']== 1? 'cama de matrimonio, ':'cama simple, ';
+        $data['room']['minicadena_wifi'] =  $data['room']['minicadena_wifi']== 1? 'con minicadena wifi ':'sin minicadena wifi ';
+        $data['user'] = $user;
+       $pdf = Pdf::loadView('user.reservaPdf',compact('data'));
+ 
+        return $pdf->download();
     }
 
 
@@ -82,6 +103,7 @@ class ReservaController extends Controller
             $cards[] = [
                 'url' => 'hotel/'.Reserva::find($reservas[$i]->id)->room()->first()->hotel()->first()->id,
                 'text1' => 'Visitado',
+                'pdf' => 'reserva/'.$reservas[$i]->id.'/pdf',
                 'nombre' => Reserva::find($reservas[$i]->id)->room()->first()->hotel()->first()->nombre, // check
                 'imagen' => Reserva::find($reservas[$i]->id)->room()->get()[0]->hotel()->first()->imagen, // check
                 'fechaIni' => (new \DateTime($reservas[$i]->fecha_ini))->format('d/m/Y'),
@@ -94,27 +116,6 @@ class ReservaController extends Controller
  
         echo $html;
     }
-/*
-    function reservedDays(Request $request) {
-
-        extract($request->all());
-        $dias = [];
-        $ini = null; 
-        $reservas = DB::table('reservas')
-            ->where('room_id',$room)->get();
-
-        for ($i=0; $i<sizeof($reservas); $i++) {
-            $ini = new \DateTime($reservas[$i]->fecha_ini);
-            $ndias = $reservas[$i]->dias;
-            for ($j=0; $j<$ndias; $j++) {
-                $dias[] = $ini->format('Y-m-d');
-                $ini->modify('+1 day');
-            }
-        }
-        // las reservas pueden ser hechas solo dias consecutivos      
-        return response()->json($dias);
-    }
-*/
 
     function visitados(Request $request) {
 

@@ -20,11 +20,12 @@
 
 @section('content')
 
-
-        <div id="provincia-fechas" class="flex flex-row  mx-auto mb-8">
+        <div id="provincia-fechas" class="flex flex-col lg:flex-row  mx-auto mb-8">
+            <label class="mr-4">¿Dónde?</label>
             <select class="mr-4" id="provincia">
-                <option value="">¿Dónde?</option>
+                <option value=0>Cualquier provincia</option>
             </select>
+            <label class="mr-4">Seleccionar fecha de estancia</label>
             <input type="text" class="bg-blue" placeholder="fecha entrada y salida" id="fecharg"/>
         </div>
         <div id="filtros" class="flex flex-col lg:flex-row mx-auto mb-8">
@@ -32,7 +33,7 @@
                 <div>
                     <div class="flex flex-row">
                         <input class="mr-2" id="camaMatrimonio" type="checkbox" > 
-                        <label class="lg:mr-6 text-gray-400" >Matrimonio</label>
+                        <label class="lg:mr-6 " >Matrimonio</label>
                     </div>
                 </div>
             </div>
@@ -41,7 +42,7 @@
                 <div>
                     <div class="flex flex-row">
                         <input class="mr-2" id="balcon" type="checkbox" > 
-                        <label class="lg:mr-6 text-gray-400" >Balcon</label>
+                        <label class="lg:mr-6 " >Balcon</label>
                     </div>
                 </div>
             </div>
@@ -50,7 +51,7 @@
                 <div>
                     <div class="flex flex-row">
                         <input class="mr-2" id="minibar" type="checkbox" > 
-                        <label class="lg:mr-6 text-gray-400" >Minibar</label>
+                        <label class="lg:mr-6 " >Minibar</label>
                     </div>
                 </div>
             </div>
@@ -59,7 +60,7 @@
                 <div>
                     <div class="flex flex-row">
                         <input class="mr-2" id="fumadores" type="checkbox" > 
-                        <label class="lg:mr-6 text-gray-400" >Fumadores</label>
+                        <label class="lg:mr-6 " >Fumadores</label>
                     </div>
                 </div>
             </div>
@@ -68,7 +69,7 @@
                 <div>
                     <div class="flex flex-row">
                         <input class="mr-2" id="minicadenaWifi" type="checkbox" > 
-                        <label class="lg:mr-6 text-gray-400" >Minicadena wifi</label>
+                        <label class="lg:mr-6 " >Minicadena wifi</label>
                     </div>
                 </div>
             </div>

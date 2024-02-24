@@ -9,30 +9,33 @@ var dataFiltros = {
     fumadores: 0, 
     minicadenaWifi: 0, 
     fechaIni: '',
-    fechaFin: ''
+    fechaFin: '',
+    provincia: '',
 }
 
-clear()
-getProvincias()
+init();
 
-$('#fecharg').daterangepicker({
-    opens: 'center',
-    minDate: new Date(),
+function init() {
     
-  }, function(start, end, label) { 
-    dataFiltros.fechaIni = start.format('YYYY-MM-DD')
-    dataFiltros.fechaFin = end.format('YYYY-MM-DD')
+    $('#fecharg').daterangepicker({
+        opens: 'center',
+        minDate: new Date(),
+        
+      }, function(start, end, label) { 
+        dataFiltros.fechaIni = start.format('YYYY-MM-DD')
+        dataFiltros.fechaFin = end.format('YYYY-MM-DD')
+        loadRooms(dataFiltros);
+    });
+
+    for (let i=0; i<cbox.length; i++) 
+        cbox[i].addEventListener('click',filtrar);
+
+    select.addEventListener('change',filtrar)
+
+    clear()
+    getProvincias()
     loadRooms(dataFiltros);
-});
-
-
-
-
-
-loadRooms(dataFiltros);
-
-for (let i=0; i<cbox.length; i++) 
-    cbox[i].addEventListener('click',filtrar);
+}
 
 function clear() {
     for (let i=0; i<cbox.length; i++) {
@@ -45,19 +48,21 @@ function filtrar(e) {
     let id = e.target.id
     let val = e.target.checked? 1:0
     dataFiltros[id] = val
-    loadRooms(dataFiltros)
+    //if (select.value != 0)
+    dataFiltros.provincia = select.value
+
+    if (dataFiltros.fechaIni != '' && dataFiltros.fechaFin != '' )
+        loadRooms(dataFiltros)
 }
 
 // llama al backend con los filtros y actualiza el contenido de la página
 function loadRooms(filtros) {
     axios.post('../../api/hotels',filtros).then(r => {
-        if (r.data == "") {
-            div.innerHTML = "<p class='text-2xl mt-16 lg:mt-32 pb-24 lg:pb-56'>No existen habitaciones con ese criterio</p>"
-        } else {
-            div.innerHTML = r.data;
-        }
+        div.innerHTML = r.data;
     })
 }
+
+// carga las provincias de hoteles disponibles
 function getProvincias() {
     axios.get('../../api/provincias').then(r => {
         for (let i=0; i<r.data.length; i++) {
