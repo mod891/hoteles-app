@@ -24,7 +24,7 @@ class UsersSeeder extends Seeder
         ]);
         $user1 = new User([
             "nombre" => "david",
-            "apellidos" => "abc def",
+            "apellidos" => "qwerty uiuop",
             "email" => "david@gmail.com",
             "telefono" => "+34623468817",
             "password" => Hash::make("pass"),
@@ -33,12 +33,21 @@ class UsersSeeder extends Seeder
             "nombre" => "Rodrigo",
             "apellidos" => "Garrido Martínez",
             "email" => "rodrigo@gmail.com",
-            "telefono" => "+34612435678",
-            "password" => Hash::make("pass"),
+            "telefono" => "+34619501678",
+            "password" => Hash::make("rodrigo"),
+        ]);
+        $user3 = new User([
+            "nombre" => "Gerardo",
+            "apellidos" => "Montoya Estribalez",
+            "email" => "gerardo@mail.com",
+            "telefono" => "+34623567885",
+            "password" => Hash::make("gerardo"),
         ]);
         $admin->saveOrFail();
         $user1->saveOrFail();
         $user2->saveOrFail();
+        $user3->saveOrFail();
+
 
     }
 }

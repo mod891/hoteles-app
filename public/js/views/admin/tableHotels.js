@@ -26,11 +26,15 @@ function dataTableHotel(data) {
     var tbody = document.getElementById('tbodyHotel')
     tbody.innerHTML = ''
         for (let i=0; i<data.length; i++) {
-            var html = `<tr><td>${data[i].nombre}</td><td>${data[i].telefono}</td><td>${data[i].municipio}</td>
-                        <td>
-                            <a href="/hotel/edit/${data[i].id}"><i class="bi bi-pencil-square"></i></a>
-                            <a onClick="rmHotel(${data[i].id})" href="#"><i class="bi bi-trash"></i></a>
-                        </td></tr>`
+            var html = `<tr><td class="xl:pr-12">${data[i].nombre}</td>
+                            <td class="xl:pr-12 pr-2 xl:inline hidden">${data[i].telefono}</td>
+                            <td class="xl:pr-12 pr-2 xl:inline hidden">${data[i].municipio}</td>
+                            <td class="xl:pr-12 pr-2 xl:inline hidden">${data[i].provincia}</td>
+                            <td class="xl:pr-12 pr-2 ">
+                                <a href="/hotel/edit/${data[i].id}"><i class="bi bi-pencil-square mr-4" title="editar"></i></a>
+                                <a onClick="rmHotel(${data[i].id})" href="#"><i class="bi bi-trash" title="borrar"></i></a>
+                            </td>
+                        </tr>`
             var row = document.createElement('tr');
             row.innerHTML = html;
             tbody.appendChild(row);

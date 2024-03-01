@@ -12,8 +12,8 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
         @yield('scripts')
     </head>
-    <body style="background-color:var(--color2)">
-        <div class="container mx-auto lg:py-12">
+    <body style="background: linear-gradient(0deg, rgba(80,70,244,1) 0%, rgba(106,212,247,1) 44%, rgba(255,255,255,1) 100%);"><!--  background-color:var(--color2)-->
+        <div class="container mx-auto py-12 xl:py-24 h-screen">
             
             @yield('content')
         </div>

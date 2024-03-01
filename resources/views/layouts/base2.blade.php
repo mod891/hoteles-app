@@ -25,16 +25,13 @@
         <div class="w-full mx-auto">
             <div class="flex flex-row ">
 
-                <div style="background-color: var(--color1);" class="flex flex-col  w-0 md:w-1/5">
-      
+                <div style="background-color: #e3e4e5" class="flex flex-col  w-0 md:w-1/5">
                 </div>
         
-                <div class="flex flex-col w-full text-center md:w-3/5"><!--bg-cyan-600   w-full md:flex md:flex-col sm:w-7 md:w-16 lg:w-1/2 xl:w-full   -->
-                    
+                <div class="flex flex-col w-full text-center md:w-3/5 shadow-2xl"><!--bg-cyan-600   w-full md:flex md:flex-col sm:w-7 md:w-16 lg:w-1/2 xl:w-full   -->
                     <div id="header" > 
-                        <!-- logo vectorial  -->
-                        <div class="w-full" style="background-color: var(--color2); height:200px;">
-                            <img class="mx-auto py-8" src="{{ asset('images/logo.svg') }}"></img>
+                        <div class="w-full" style="background-color: #ffffff; height:200px">
+                            <img class="mx-auto py-8" src="{{ asset('images/logo-color.png') }}"></img>
                         </div>
                     </div>
                     <div class="lg:hidden sticky top-0">
@@ -59,16 +56,15 @@
                         </ul>
                     </div>
                     
-
                     <!--begin contenido -->
                     @yield('content')
                     <!-- end contenido -->
-                    <div style="background-color: var(--color2)" class="flex flex-row h-36 mt-16">
-
+                    <div style="background-color: var(--color3)" class="flex flex-row h-36 mt-16">
+                        <div class="mx-auto self-center">Hoteles fiesta © 2024</div>
                     </div>
                 </div>
 
-                <div style="background-color: var(--color1);" class="flex flex-col sm:w-0 md:w-1/5">
+                <div style="background-color: #e3e4e5" class="flex flex-col sm:w-0 md:w-1/5">
                     
                 </div>
 

@@ -128,7 +128,7 @@ class HotelController extends Controller
     
         $existe = DB::table('favoritos')->select(DB::raw('count(*) as existe'))->where([
           ['user_id', '=', $userId],
-          ['hotel_id', '=', $hotelId],// ahora hotel_id
+          ['hotel_id', '=', $hotelId],
         ])->get()->first()->existe;
     
         return response()->json(['favorito' => $existe]);
@@ -202,9 +202,13 @@ class HotelController extends Controller
     }
 
     function ficha(Request $request) {
+
         $id = explode('/',$request->getRequestUri())[2];
         $obj = Hotel::find($id);
 
+        if ($obj == null) 
+            return redirect()->to('/');
+        
         $hotel = $obj->getAttributes();
         $habitaciones = $obj->rooms;
         
@@ -260,6 +264,9 @@ class HotelController extends Controller
     
     function edit(Request $request) {
 
+        if ($request->user()->rol != 'admin')
+            return redirect()->back();
+
         extract($request->all());
 
         // imagen antigua, no hay que subir otra imagen distinta
@@ -278,6 +285,10 @@ class HotelController extends Controller
     }
 
     function editForm(Request $request) {
+        // forma correcta lib spatie roles middleware hasRole
+        
+        if ($request->user()->rol != 'admin')
+            return redirect()->to('/');
 
         $id = explode('/',$request->getRequestUri())[3];
         $obj = Hotel::find($id);

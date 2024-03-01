@@ -1,5 +1,5 @@
-<div>
-    <div class="flex flex-row justify-end">
+<div style="background-color:var(--color6)" class="border rounded-xl px-4 shadow-2xl mt-8">
+    <div class="flex mt-12 flex-row justify-end">
         <a href="{{ route('admin.hotel.new') }}">
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-building-add" viewBox="0 0 16 16">
                 <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0"/>
@@ -8,15 +8,17 @@
             </svg>
         </a>
     </div>
-    <div class="flex flex-row">
+    <div class="flex flex-row justify-center">
     
-        <div id="table">
-            <table class="calculator">
+        <div class="xl:mt-16 mt-12" id="table">
+            <table class="">
                 <thead>
-                    <th>Nombre</th>
-                    <th>Teléfono</th>
-                    <th>Municipio</th>
-                    <th>Accion</th>
+                    <th class="xl:pr-12 pr-2">Nombre</th>
+                    <!--<th class=" xl:pr-4 hidden xl:inline pr-2">Dirección</th>-->
+                    <th class=" xl:pr-12 hidden xl:inline pr-2">Teléfono</th>
+                    <th class="xl:pr-12 hidden xl:inline pr-2">Municipio</th>
+                    <th class="xl:pr-12 hidden xl:inline pr-2">Provincia</th>
+                    <th class="xl:pr-12 pr-2">Acción</th>
                 </thead>
                 <tbody id='tbodyHotel'>
                     <tr>
@@ -27,7 +29,7 @@
         </div>
     </div>
 
-    <div class="flex flex-row justify-center mt-6">
+    <div class="flex flex-row justify-center xl:mt-16 mt-12">
         <div id="paginacionHotel">
         </div>
     </div>

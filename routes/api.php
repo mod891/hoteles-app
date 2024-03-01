@@ -48,5 +48,5 @@ Route::put('user/{id}',[UserController::class,'edit']);
 
 Route::post('reserva', [ReservaController::class,'store']);
 Route::get('reservas',[ReservaController::class, 'reservedList']);
-//Route::get('reserva/dias',[ReservaController::class, 'reservedDays']);
+Route::delete('reserva/{id}', [ReservaController::class,'delete']);
 Route::get('visitados',[ReservaController::class, 'visitedList']);

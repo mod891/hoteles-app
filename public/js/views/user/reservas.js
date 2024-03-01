@@ -15,8 +15,23 @@ function getReservas() {
 }
 
 
-function rmReserva(id) {
-    
+function rmReserva(obj) {
+    Swal.fire({
+        title: "Eliminar reserva",
+        text: 'Va a eliminar esta reserva, ¿desea continuar?',
+        icon: "question",
+        showCloseButton: false,
+        showCancelButton: true,
+        confirmButtonText: 'Si',
+        cancelButtonText: 'No',
+    })
+    .then((result) => {
+        if (result.isConfirmed) {
+            axios.delete('../../api/reserva/'+obj.value).then(r => {
+                getReservas();
+            })
+        }
+    })  
 }
 
 getReservas();

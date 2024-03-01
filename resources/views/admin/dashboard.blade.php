@@ -12,12 +12,12 @@
 
     
 
-        <div class="flex flex-row justify-center">
-            <div class="tab mx-12">
-                <a href="#" id="hoteles">Hoteles</a>
+        <div class="flex flex-row justify-center xl:mt-8 mt-4">
+            <div class="tab mx-4">
+                <a class="a-btn py-4 px-4 rounded-xl text-xl" href="#" id="hoteles">Hoteles</a>
             </div>
-            <div class="tab mx-12">
-                <a href="#" id="usuarios">Usuarios</a>
+            <div class="tab mx-4">
+                <a class="a-btn py-4 px-4 rounded-xl text-xl" href="#" id="usuarios">Usuarios</a>
             </div>
         </div>
 

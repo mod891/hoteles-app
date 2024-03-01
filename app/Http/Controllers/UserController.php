@@ -10,8 +10,10 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    function index() {
-        
+    function index(Request $request) {
+        if ($request->user()->rol != 'admin')
+            return redirect()->to('/');
+
         return User::All()->toJson();
     }
 
@@ -67,6 +69,9 @@ class UserController extends Controller
 
     function editForm(Request $request) {
 
+        if ($request->user()->rol != 'admin')
+        return redirect()->to('/');
+
         $id = explode('/',$request->getRequestUri())[3];
         $obj = User::find($id);
         $usuario = $obj->getAttributes();
@@ -75,6 +80,9 @@ class UserController extends Controller
     }
 
     function createForm(Request $request) {
+
+        if ($request->user()->rol != 'admin')
+            return redirect()->to('/');
 
         return view('admin.usuario.new');
     }

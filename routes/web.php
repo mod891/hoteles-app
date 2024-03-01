@@ -33,7 +33,7 @@ use App\Http\Controllers\ReservaController;
 
     Route::get('/hotel/create', [HotelController::class, 'createForm'])->name('admin.hotel.new')->middleware('auth');
     Route::get('/hotel/edit/{id}', [HotelController::class, 'editForm'])->name('admin.hotel.edit')->middleware('auth');
-    Route::get('/hotel/{id}', [HotelController::class, 'ficha'])->name('user.fichaHotel')->middleware('auth'); // 
+    Route::get('/hotel/{id}', [HotelController::class, 'ficha'])->name('user.fichaHotel')->middleware('auth'); 
     Route::get('/favoritos', [HotelController::class, 'favoritos'])->name('user.favoritos')->middleware('auth');
 
     Route::get('/room/create/{id}', [RoomController::class, 'createForm'])->name('admin.room.new')->middleware('auth');

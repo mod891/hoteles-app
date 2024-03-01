@@ -7,6 +7,7 @@ var obj = null;
 var selectRoom = document.getElementById('habitaciones')
 var divFechaReserva = document.getElementById('reserva-fecha')
 var divTotal = document.getElementById('precioTotal')
+var divNoFiltro = document.getElementById('noFiltro')
 var divListHabitaciones = document.getElementById('habitacionesDelHotel')
 var datos = { roomId: 0, dias:0, fechaIni:'', fechaFin:'', precio:0 }
 var fechasReservas = [];
@@ -28,6 +29,8 @@ function init() {
 // btn reserva hidden
 
     if (location.search.length != 0) {
+        noFiltro.classList.add('hidden')
+        console.log('this')
         btnReserva.classList.remove('hidden')
         obj = JSON.parse(atob(location.search.substring(3)))
         var textFechas = `<p>Reserva del ${obj.fechas.fechaIni} al ${obj.fechas.fechaFin}</p>` 
@@ -41,7 +44,7 @@ function init() {
             option.value = i
             selectRoom.add(option)
         }
-    }       
+    } 
 }
 
 function showTotal(e) {

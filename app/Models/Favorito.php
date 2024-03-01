@@ -11,12 +11,12 @@ class Favorito extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'room_id'
+        'user_id', 'hotel_id'
     ];
 
-    public function room(): BelongsTo
+    public function hotel(): BelongsTo
     {
-        return $this->belongsTo(Room::class,'room_id');
+        return $this->belongsTo(Hotel::class,'hotel_id');
     }
 
     public function user(): BelongsTo

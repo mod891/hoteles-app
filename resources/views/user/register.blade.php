@@ -7,7 +7,7 @@
 @section('content') 
 
 <!--div class="h-screen flex items-center justify-center"> -->
-<div id="crear-usuario-view" class="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
+<div id="crear-usuario-view" class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md border border-black">
     <h2 class="text-2xl font-semibold mb-4">Registro</h2>
   
     <form id="crear-usuario-form" action="/api/user" method="POST">

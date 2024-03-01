@@ -26,8 +26,11 @@ function dataTableUser(data) {
     var tbody = document.getElementById('tbodyUsuario')
     tbody.innerHTML = ''
         for (let i=0; i<data.length; i++) {
-            var html = `<tr><td>${data[i].nombre}</td><td>${data[i].apellidos}</td><td>${data[i].email}</td><td>${data[i].telefono}</td>
-                        <td>
+            var html = `<tr><td class="xl:pr-12 pr-2 xl:inline hidden">${data[i].nombre}</td>
+                            <td class="xl:pr-12 pr-2 xl:inline hidden">${data[i].apellidos}</td>
+                            <td class="xl:pr-12 pr-2 ">${data[i].email}</td>
+                            <td class="xl:pr-12 pr-2 xl:inline hidden">${data[i].telefono}</td>
+                        <td class="xl:pr-12 pr-2">
                             <a href="/user/edit/${data[i].id}"><i class="bi bi-pencil-square"></i></a>
                             <a onClick="rmUser(${data[i].id})" href="#"><i class="bi bi-trash"></i></a>
                         </td></tr>`
@@ -38,6 +41,7 @@ function dataTableUser(data) {
 }
 
 function dataPaginacionUser(data) {
+    // data.per_page -> usar var para pag + 1 res x page
     var div = document.getElementById('paginacionUser');
     let sig, sigfunc, prev, prevfunc;
 

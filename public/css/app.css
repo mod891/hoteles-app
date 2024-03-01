@@ -1,7 +1,7 @@
 :root {
   --color1: #00b4c5;
   --color2: rgb(34 211 238); /* cian-400 */
-  --color3: #2dc554;
+  --color3: #ffff00;/*2dc554*/
   --color4: #2546f0;
   --color5: #f5403f;
   --color6: #a5f65e;
@@ -11,11 +11,6 @@
 }
 .input-message-error {
     color: red;
-}
-
-@media all and (max-width:768px) {
-    .calculator tr {    display: table;  width:100%;    }               
-    .calculator td {    display: table-row; }           
 }
 
 
@@ -29,4 +24,20 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+.rounded-lg {
+  border-radius: 0.7rem !important;
+}
+
+.a-btn {
+  font-weight: 600;
+  color: white;
+  background-color: #2096bd;
+}
+.a-btn:hover {
+  background-color: #2546f0;
+}
+.gradient {
+  background: linear-gradient(0deg, rgba(80,70,244,1) 0%, rgba(106,212,247,1) 18%, rgba(255,255,255,1) 37%); 
 }

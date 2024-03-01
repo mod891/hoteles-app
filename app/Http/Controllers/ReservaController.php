@@ -30,6 +30,12 @@ class ReservaController extends Controller
 
     }
 
+    function delete(Request $request) {
+        $idReserva = explode('/',$request->getRequestUri())[3];
+        $reserva = Reserva::find($idReserva);
+        $reserva->delete();
+        return response('',204);
+    }
 
     function pdf(Request $request) {
         $data = $request->all();
@@ -70,6 +76,7 @@ class ReservaController extends Controller
         for ($i=0; $i<sizeof($reservas); $i++) {
             
             $cards[] = [
+                'id' => $reservas[$i]->id,
                 'url' => 'hotel/'.Reserva::find($reservas[$i]->id)->room()->first()->hotel()->first()->id,
                 'text1' => 'Reserva ',
                 'pdf' => 'reserva/'.$reservas[$i]->id.'/pdf',
@@ -101,6 +108,7 @@ class ReservaController extends Controller
         $html = "";
         for ($i=0; $i<sizeof($reservas); $i++) {
             $cards[] = [
+                'id' => null,
                 'url' => 'hotel/'.Reserva::find($reservas[$i]->id)->room()->first()->hotel()->first()->id,
                 'text1' => 'Visitado',
                 'pdf' => 'reserva/'.$reservas[$i]->id.'/pdf',
