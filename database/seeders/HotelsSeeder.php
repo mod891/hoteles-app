@@ -65,8 +65,8 @@ class HotelsSeeder extends Seeder
         ]);
 
         $hotel6 = new Hotel([
-            "nombre" => "La girocleta",
-            "direccion" => "C/ catalan nº 53",
+            "nombre" => "La cuchufleta",
+            "direccion" => "C/ Arburtlex nº 53",
             "municipio" => "Vilablareix",
             "provincia" => "Girona",
             "telefono" => "653267467",
@@ -296,7 +296,6 @@ class HotelsSeeder extends Seeder
         $room13->saveOrFail();
         $room14->saveOrFail();
         $room15->saveOrFail();
-
 
 
     }

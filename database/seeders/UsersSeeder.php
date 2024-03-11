@@ -39,7 +39,7 @@ class UsersSeeder extends Seeder
         $user3 = new User([
             "nombre" => "Gerardo",
             "apellidos" => "Montoya Estribalez",
-            "email" => "gerardo@mail.com",
+            "email" => "gerardo@gmail.com",
             "telefono" => "+34623567885",
             "password" => Hash::make("gerardo"),
         ]);

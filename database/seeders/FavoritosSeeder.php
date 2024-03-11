@@ -21,7 +21,7 @@ class FavoritosSeeder extends Seeder
 
         $favorito2 = new Favorito([
             'user_id' => '2',
-            'hotel_id' => '4'
+            'hotel_id' => '8'
         ]);
 
         $favorito3 = new Favorito([

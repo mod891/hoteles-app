@@ -89,7 +89,7 @@ class HotelController extends Controller
                 'provincia' => $hotel->provincia,
                 'habitaciones' => sizeof($values['rooms']) > 1? sizeof($values['rooms']).' habitaciones disponibles':sizeof($values['rooms']).' habitacion disponible',
                 'idRooms' => $values['rooms'],
-                'precio' => 'Desde '.$values['precio'].' la noche'
+                'precio' => 'Desde '.$values['precio'].'€ la noche'
             ];
 
             if ($provincia != 0 && $hotel->provincia != $provincia) {
@@ -177,14 +177,18 @@ class HotelController extends Controller
     function favoritosList(Request $request) {
         $userId = $request->user()->id;
         $favoritos = Favorito::where('user_id',$userId)->get();
+        
         $html = '';
         for ($i=0; $i<sizeof($favoritos); $i++) {
             $hotel = Hotel::find($favoritos[$i]->hotel_id);
+            
             $precio = 99999999;
+           
             for ($j=0; $j<sizeof($hotel->rooms); $j++) {
-                if ($hotel->rooms[$i]->precio < $precio)
-                    $precio = $hotel->rooms[$i]->precio;
+                if ($hotel->rooms[$j]->precio < $precio)
+                    $precio = $hotel->rooms[$j]->precio;
             }
+            
             $data = [
                 'url' => 'hotel/'.$hotel->id,
                 'nombre' => $hotel->nombre,
@@ -194,10 +198,9 @@ class HotelController extends Controller
                 'habitaciones' => sizeof($hotel->rooms).' habitaciones disponibles',
                 'precio' => 'Desde '.$precio.'€ la noche'
             ];
-        
             $html .= View::make("components.card")->with("data", $data)->render();
+            
         } 
-        
         echo $html;
     }
 

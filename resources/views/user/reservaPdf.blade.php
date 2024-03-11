@@ -104,7 +104,7 @@
 
         <div class="flex flex-row mt-3r ">
             <div class="w-1/2"></div>
-            <div class="w-1/2 text-xl">TOTAL: {{$data['precio']}} €</div>
+            <div class="w-1/2 text-xl">TOTAL: {{$data['precio']}} € IVA no incluido</div>
 
             
         </div>

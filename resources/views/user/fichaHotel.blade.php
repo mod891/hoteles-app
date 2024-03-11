@@ -14,6 +14,44 @@
     width: 500px;
 } 
 
+@media only screen and (max-width: 810px) and (max-height: 1080px) {
+    .marco-img {
+        padding:2px;
+        background-color: #e0e0eb;
+        border-radius: 0.7rem;
+        width:210px;
+        height:210px;
+    }
+}
+@media only screen and (max-width: 412px) and (max-height: 883px) {
+    .marco-img {
+        padding:2px;
+        background-color: #e0e0eb;
+        border-radius: 0.7rem;
+        width:170px;
+        height:170px;
+    }
+}
+@media only screen and (max-width: 390px) and (max-height: 844px) {
+    .marco-img {
+        padding:2px;
+        background-color: #e0e0eb;
+        border-radius: 0.7rem;
+        width:170px;
+        height:170px;
+    }
+}
+
+@media only screen and (max-width: 384px) and (max-height: 854px) {
+    .marco-img {
+        padding:2px;
+        background-color: #e0e0eb;
+        border-radius: 0.7rem;
+        width:160px;
+        height:160px;
+    }
+}
+
 @media only screen and (max-width: 360px) and (max-height: 640px) {
     .marco-img {
         padding:2px;

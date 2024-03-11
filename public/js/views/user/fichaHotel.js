@@ -60,7 +60,7 @@ function showTotal(e) {
         btnReserva.classList.add('hover:bg-blue-700')
         btnReserva.disabled = false
         
-        divTotal.innerHTML = `${obj.fechas.dias} noches x ${obj.rooms[e.target.value].precio } €/noche = ${datos.precio}€ `
+        divTotal.innerHTML = `${obj.fechas.dias} noches x ${obj.rooms[e.target.value].precio } €/noche = ${datos.precio}€ IVA no incluido`
         divTotal.classList.remove('hidden')
     } else {
         divTotal.classList.add('hidden')

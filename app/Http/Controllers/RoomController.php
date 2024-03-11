@@ -30,7 +30,7 @@ class RoomController extends Controller
       $habitacion->cama_matrimonio = $camaMatrimonio;
       $habitacion->precio = $precio;
       $habitacion->save();
-      return redirect()->back()->with('popup','habitacion'); // extra -> añadir algun tipo de verificacion prevent cualquiera llame a popup
+      return redirect()->back()->with('popup','habitacion'); 
     }
 
 

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('rol')->default('normal');
             $table->rememberToken();
             $table->timestamps();
-            // extra fields: localidad / provincia / CP 
+            
         });
     }
 

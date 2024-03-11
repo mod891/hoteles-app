@@ -12,13 +12,13 @@
             <!-- Usuario -->
             <div class="mb-4 ml-12 xl:ml-20">
                 <label for="email" class="block text-gray-700 font-semibold">Email</label>
-                <input id="email" type="email" name="email" value="{{ old('email') }}">
+                <input class="border " id="email" type="email" name="email" value="{{ old('email') }}">
                 <div class="input-message-error" id="nombreError"></div>
             </div>
             <!-- Contraseña -->
             <div class="mb-4 ml-12 xl:ml-20">
                 <label for="apellidos" class="block text-gray-700 font-semibold">Contraseña</label>
-                <input id="password" name="password" type="password">
+                <input class="border " id="password" name="password" type="password">
                 <div class="input-message-error" id="nombreError"></div>
             </div>
 
